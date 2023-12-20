@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.tex": "cmake",
+        "bitset": "cpp",
+        "optional": "cpp"
+    }
+}
