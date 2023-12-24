@@ -155,7 +155,7 @@ uint32_t get_sample_sequence_number(const SampleTypePointer & sample)
 
 template<typename SampleTypePointer>
 uint32_t get_missed_samples_and_update_seq_nr(
-  const SampleTypePointer & sample,
+  const SampleTypePointer & sample, // input message
   uint32_t & sequence_number)
 {
   uint32_t updated_seq_nr = get_sample_sequence_number(sample);
@@ -168,8 +168,8 @@ uint32_t get_missed_samples_and_update_seq_nr(
 
 template<typename SampleTypePointer, typename SourceType>
 void merge_history_into_sample(
-  SampleTypePointer & sample,
-  const SourceType & source)
+  SampleTypePointer & sample, // output message to be published
+  const SourceType & source)  // input messgae from specific topic
 {
   if (is_in_benchmark_mode()) {
     return;
@@ -281,8 +281,7 @@ void print_sample_path(
   }
 
   static std::map<std::string, sample_statistic_t> advanced_statistics;
-  static std::map<std::string, std::map<std::string, statistic_value_t>>
-  dropped_samples;
+  static std::map<std::string, std::map<std::string, statistic_value_t>> dropped_samples;
 
   auto iter = advanced_statistics.find(node_name);
   if (iter == advanced_statistics.end()) {
@@ -417,7 +416,7 @@ void print_sample_path(
   }
 
   std::cout << "latency" << std::endl;
-  advanced_statistics[node_name].latency.set(timestamp_in_ns - min_time_stamp);
+  advanced_statistics[node_name].latency.set(timestamp_in_ns - min_time_stamp); // current time - the earliest timestamp for the hot path
 
   std::cout << std::endl;
   std::cout << "Statistics:" << std::endl;
