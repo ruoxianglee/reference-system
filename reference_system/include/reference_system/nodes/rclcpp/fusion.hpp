@@ -59,6 +59,9 @@ private:
       return;
     }
 
+    if (input_number == 1)
+        return;
+
     auto number_cruncher_result = number_cruncher(number_crunch_limit_);
 
     auto output_message = publisher_->borrow_loaned_message();
