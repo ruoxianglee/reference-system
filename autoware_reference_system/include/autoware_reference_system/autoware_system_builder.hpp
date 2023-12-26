@@ -255,12 +255,9 @@ auto create_fusion_test_nodes()
       "RearLidarDriver",
       "PointsTransformerFront",
       "PointsTransformerRear",
-      "PointCloudFusion",
-      "RayGroundFilter",
-      "EuclideanClusterDetector",
-      "ObjectCollisionEstimator"},
+      "PointCloudFusion"},
     {"FrontLidarDriver", "RearLidarDriver"},
-    "ObjectCollisionEstimator");
+    "PointCloudFusion");
 
 // ignore the warning about designated initializers - they make the code much
 // more readable
