@@ -306,22 +306,22 @@ auto create_fusion_test_nodes()
   //   .topic_name = "EuclideanClusterSettings",
   //   .cycle_time = TimingConfig::EUCLIDEAN_CLUSTER_SETTINGS}));
 
-  // // transform nodes
-  // nodes.emplace_back(
-  //   std::make_shared<typename SystemType::Transform>(
-  //     nodes::TransformSettings{
-  //   .node_name = "PointsTransformerFront",
-  //   .input_topic = "FrontLidarDriver",
-  //   .output_topic = "PointsTransformerFront",
-  //   .number_crunch_limit = TimingConfig::POINTS_TRANSFORMER_FRONT}));
+  // transform nodes
+  nodes.emplace_back(
+    std::make_shared<typename SystemType::Transform>(
+      nodes::TransformSettings{
+    .node_name = "PointsTransformerFront",
+    .input_topic = "FrontLidarDriver",
+    .output_topic = "PointsTransformerFront",
+    .number_crunch_limit = TimingConfig::POINTS_TRANSFORMER_FRONT}));
 
-  // nodes.emplace_back(
-  //   std::make_shared<typename SystemType::Transform>(
-  //     nodes::TransformSettings{
-  //   .node_name = "PointsTransformerRear",
-  //   .input_topic = "RearLidarDriver",
-  //   .output_topic = "PointsTransformerRear",
-  //   .number_crunch_limit = TimingConfig::POINTS_TRANSFORMER_REAR}));
+  nodes.emplace_back(
+    std::make_shared<typename SystemType::Transform>(
+      nodes::TransformSettings{
+    .node_name = "PointsTransformerRear",
+    .input_topic = "RearLidarDriver",
+    .output_topic = "PointsTransformerRear",
+    .number_crunch_limit = TimingConfig::POINTS_TRANSFORMER_REAR}));
 
   // nodes.emplace_back(
   //   std::make_shared<typename SystemType::Transform>(
