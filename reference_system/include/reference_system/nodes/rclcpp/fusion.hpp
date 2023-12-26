@@ -80,8 +80,8 @@ private:
     output_message.get().data[0] = number_cruncher_result;
     publisher_->publish(std::move(output_message));
 
-    subscriptions_[0].cache.reset();
-    subscriptions_[1].cache.reset();
+    // subscriptions_[0].cache.reset();
+    // subscriptions_[1].cache.reset();
   }
 
 private:
