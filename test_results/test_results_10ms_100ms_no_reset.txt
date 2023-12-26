@@ -1,0 +1,785 @@
+Statistics:
+  latency:                  722.775ms [min=11.6892ms, max=1006.63ms, average=489.967ms, deviation=281.474ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  732.704ms [min=11.6892ms, max=1006.63ms, average=490.485ms, deviation=281.397ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  743.137ms [min=11.6892ms, max=1006.63ms, average=491.022ms, deviation=281.338ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  753.205ms [min=11.6892ms, max=1006.63ms, average=491.579ms, deviation=281.298ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  763.127ms [min=11.6892ms, max=1006.63ms, average=492.154ms, deviation=281.277ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  772.548ms [min=11.6892ms, max=1006.63ms, average=492.747ms, deviation=281.275ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  782.907ms [min=11.6892ms, max=1006.63ms, average=493.359ms, deviation=281.293ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  792.576ms [min=11.6892ms, max=1006.63ms, average=493.989ms, deviation=281.331ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  802.634ms [min=11.6892ms, max=1006.63ms, average=494.638ms, deviation=281.391ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  813.33ms [min=11.6892ms, max=1006.63ms, average=495.306ms, deviation=281.474ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  823.349ms [min=11.6892ms, max=1006.63ms, average=495.992ms, deviation=281.579ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  832.81ms [min=11.6892ms, max=1006.63ms, average=496.695ms, deviation=281.705ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  842.742ms [min=11.6892ms, max=1006.63ms, average=497.416ms, deviation=281.853ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  852.662ms [min=11.6892ms, max=1006.63ms, average=498.155ms, deviation=282.025ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  863.269ms [min=11.6892ms, max=1006.63ms, average=498.912ms, deviation=282.222ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  873.876ms [min=11.6892ms, max=1006.63ms, average=499.689ms, deviation=282.445ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  883.118ms [min=11.6892ms, max=1006.63ms, average=500.481ms, deviation=282.69ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  893.348ms [min=11.6892ms, max=1006.63ms, average=501.291ms, deviation=282.961ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  903.323ms [min=11.6892ms, max=1006.63ms, average=502.118ms, deviation=283.257ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  913.108ms [min=11.6892ms, max=1006.63ms, average=502.962ms, deviation=283.577ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  923.111ms [min=11.6892ms, max=1006.63ms, average=503.823ms, deviation=283.924ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  933.298ms [min=11.6892ms, max=1006.63ms, average=504.701ms, deviation=284.297ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  942.768ms [min=11.6892ms, max=1006.63ms, average=505.595ms, deviation=284.695ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  952.527ms [min=11.6892ms, max=1006.63ms, average=506.505ms, deviation=285.118ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  963.717ms [min=11.6892ms, max=1006.63ms, average=507.435ms, deviation=285.573ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  972.82ms [min=11.6892ms, max=1006.63ms, average=508.379ms, deviation=286.051ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  982.581ms [min=11.6892ms, max=1006.63ms, average=509.339ms, deviation=286.556ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  992.839ms [min=11.6892ms, max=1006.63ms, average=510.315ms, deviation=287.09ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  1006.24ms [min=11.6892ms, max=1006.63ms, average=511.315ms, deviation=287.663ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  12.7842ms [min=11.6892ms, max=1006.63ms, average=510.312ms, deviation=288.242ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  14.3507ms [min=11.6892ms, max=1006.63ms, average=509.316ms, deviation=288.808ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  20.9922ms [min=11.6892ms, max=1006.63ms, average=508.338ms, deviation=289.345ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  30.1162ms [min=11.6892ms, max=1006.63ms, average=507.381ms, deviation=289.845ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  41.7004ms [min=11.6892ms, max=1006.63ms, average=506.452ms, deviation=290.301ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  53.2497ms [min=11.6892ms, max=1006.63ms, average=505.549ms, deviation=290.716ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  63.8116ms [min=11.6892ms, max=1006.63ms, average=504.671ms, deviation=291.093ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  73.1822ms [min=11.6892ms, max=1006.63ms, average=503.815ms, deviation=291.438ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  82.5192ms [min=11.6892ms, max=1006.63ms, average=502.98ms, deviation=291.752ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  93.3053ms [min=11.6892ms, max=1006.63ms, average=502.171ms, deviation=292.031ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  103.246ms [min=11.6892ms, max=1006.63ms, average=501.384ms, deviation=292.28ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  113.285ms [min=11.6892ms, max=1006.63ms, average=500.62ms, deviation=292.499ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  122.66ms [min=11.6892ms, max=1006.63ms, average=499.877ms, deviation=292.691ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  133.207ms [min=11.6892ms, max=1006.63ms, average=499.158ms, deviation=292.854ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  143.128ms [min=11.6892ms, max=1006.63ms, average=498.462ms, deviation=292.99ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  153.376ms [min=11.6892ms, max=1006.63ms, average=497.788ms, deviation=293.1ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  165.605ms [min=11.6892ms, max=1006.63ms, average=497.14ms, deviation=293.181ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  171.756ms [min=11.6892ms, max=1006.63ms, average=496.507ms, deviation=293.246ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  183.492ms [min=11.6892ms, max=1006.63ms, average=495.899ms, deviation=293.286ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  192.091ms [min=11.6892ms, max=1006.63ms, average=495.31ms, deviation=293.306ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  203.237ms [min=11.6892ms, max=1006.63ms, average=494.746ms, deviation=293.303ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  213.12ms [min=11.6892ms, max=1006.63ms, average=494.202ms, deviation=293.28ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  223.276ms [min=11.6892ms, max=1006.63ms, average=493.68ms, deviation=293.238ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  232.717ms [min=11.6892ms, max=1006.63ms, average=493.178ms, deviation=293.179ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  242.543ms [min=11.6892ms, max=1006.63ms, average=492.697ms, deviation=293.103ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  253.25ms [min=11.6892ms, max=1006.63ms, average=492.238ms, deviation=293.009ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  262.756ms [min=11.6892ms, max=1006.63ms, average=491.799ms, deviation=292.9ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  272.946ms [min=11.6892ms, max=1006.63ms, average=491.382ms, deviation=292.776ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  282.949ms [min=11.6892ms, max=1006.63ms, average=490.985ms, deviation=292.638ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  292.557ms [min=11.6892ms, max=1006.63ms, average=490.608ms, deviation=292.487ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  302.638ms [min=11.6892ms, max=1006.63ms, average=490.251ms, deviation=292.324ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  313.218ms [min=11.6892ms, max=1006.63ms, average=489.916ms, deviation=292.148ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  323.22ms [min=11.6892ms, max=1006.63ms, average=489.6ms, deviation=291.961ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  332.564ms [min=11.6892ms, max=1006.63ms, average=489.304ms, deviation=291.765ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  342.577ms [min=11.6892ms, max=1006.63ms, average=489.028ms, deviation=291.559ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  352.721ms [min=11.6892ms, max=1006.63ms, average=488.772ms, deviation=291.344ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  363.293ms [min=11.6892ms, max=1006.63ms, average=488.536ms, deviation=291.121ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  373.195ms [min=11.6892ms, max=1006.63ms, average=488.32ms, deviation=290.89ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  383.266ms [min=11.6892ms, max=1006.63ms, average=488.124ms, deviation=290.653ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  393.213ms [min=11.6892ms, max=1006.63ms, average=487.947ms, deviation=290.41ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  403.411ms [min=11.6892ms, max=1006.63ms, average=487.789ms, deviation=290.162ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  413.169ms [min=11.6892ms, max=1006.63ms, average=487.651ms, deviation=289.91ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  423.47ms [min=11.6892ms, max=1006.63ms, average=487.532ms, deviation=289.654ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  433.134ms [min=11.6892ms, max=1006.63ms, average=487.431ms, deviation=289.394ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  442.529ms [min=11.6892ms, max=1006.63ms, average=487.348ms, deviation=289.133ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  453.714ms [min=11.6892ms, max=1006.63ms, average=487.286ms, deviation=288.869ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  463.222ms [min=11.6892ms, max=1006.63ms, average=487.241ms, deviation=288.604ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  473.166ms [min=11.6892ms, max=1006.63ms, average=487.216ms, deviation=288.339ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  482.958ms [min=11.6892ms, max=1006.63ms, average=487.208ms, deviation=288.074ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  492.553ms [min=11.6892ms, max=1006.63ms, average=487.218ms, deviation=287.809ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  502.932ms [min=11.6892ms, max=1006.63ms, average=487.246ms, deviation=287.547ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  513.228ms [min=11.6892ms, max=1006.63ms, average=487.294ms, deviation=287.286ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  522.991ms [min=11.6892ms, max=1006.63ms, average=487.359ms, deviation=287.028ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  532.693ms [min=11.6892ms, max=1006.63ms, average=487.441ms, deviation=286.773ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  542.917ms [min=11.6892ms, max=1006.63ms, average=487.542ms, deviation=286.521ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  553.325ms [min=11.6892ms, max=1006.63ms, average=487.661ms, deviation=286.275ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  562.999ms [min=11.6892ms, max=1006.63ms, average=487.797ms, deviation=286.034ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  572.595ms [min=11.6892ms, max=1006.63ms, average=487.95ms, deviation=285.798ms]
+----------------------------------------------------------
+
+----------------------------------------------------------
+sample path: (CommandNode) 
+  order timepoint           sequence nr.                  node name     dropped samples
+latency
+
+Statistics:
+  latency:                  582.588ms [min=11.6892ms, max=1006.63ms, average=488.121ms, deviation=285.568ms]
