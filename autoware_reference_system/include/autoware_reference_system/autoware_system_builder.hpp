@@ -245,6 +245,120 @@ auto create_autoware_nodes()
 }
 
 template<typename SystemType, typename TimingConfig>
+auto create_single_chain_nodes()
+->std::vector<std::shared_ptr<typename SystemType::NodeBaseType>>
+{
+  std::vector<std::shared_ptr<typename SystemType::NodeBaseType>> nodes;
+
+  SampleManagementSettings::get().set_hot_path(
+    {"FrontLidarDriver",
+      "PointsTransformerFront",
+      "PointsTransformerRear",
+      "VoxelGridDownsampler",
+      "PointCloudMapLoader",
+      "RayGroundFilter",
+      "ObjectCollisionEstimator"},
+    {"FrontLidarDriver"},
+    "ObjectCollisionEstimator");
+
+// ignore the warning about designated initializers - they make the code much
+// more readable
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpedantic"
+
+  // setup communication graph
+  // sensor nodes
+  nodes.emplace_back(
+    std::make_shared<typename SystemType::Sensor>(
+      nodes::SensorSettings{.node_name = "FrontLidarDriver",
+        .topic_name = "FrontLidarDriver",
+        .cycle_time = TimingConfig::FRONT_LIDAR_DRIVER}));
+
+  // transform nodes
+  nodes.emplace_back(
+    std::make_shared<typename SystemType::Transform>(
+      nodes::TransformSettings{
+    .node_name = "PointsTransformerFront",
+    .input_topic = "FrontLidarDriver",
+    .output_topic = "PointsTransformerFront",
+    .number_crunch_limit = TimingConfig::POINTS_TRANSFORMER_FRONT}));
+
+  nodes.emplace_back(
+    std::make_shared<typename SystemType::Transform>(
+      nodes::TransformSettings{
+    .node_name = "PointsTransformerRear",
+    .input_topic = "PointsTransformerFront",
+    .output_topic = "PointsTransformerRear",
+    .number_crunch_limit = TimingConfig::POINTS_TRANSFORMER_REAR}));
+
+  nodes.emplace_back(
+    std::make_shared<typename SystemType::Transform>(
+      nodes::TransformSettings{
+    .node_name = "VoxelGridDownsampler",
+    .input_topic = "PointsTransformerRear",
+    .output_topic = "VoxelGridDownsampler",
+    .number_crunch_limit = TimingConfig::VOXEL_GRID_DOWNSAMPLER}));
+
+  nodes.emplace_back(
+    std::make_shared<typename SystemType::Transform>(
+      nodes::TransformSettings{
+    .node_name = "PointCloudMapLoader",
+    .input_topic = "VoxelGridDownsampler",
+    .output_topic = "PointCloudMapLoader",
+    .number_crunch_limit = TimingConfig::POINT_CLOUD_MAP_LOADER}));
+
+  nodes.emplace_back(
+    std::make_shared<typename SystemType::Transform>(
+      nodes::TransformSettings{
+    .node_name = "RayGroundFilter",
+    .input_topic = "PointCloudMapLoader",
+    .output_topic = "RayGroundFilter",
+    .number_crunch_limit = TimingConfig::RAY_GROUND_FILTER}));
+
+  nodes.emplace_back(
+    std::make_shared<typename SystemType::Transform>(
+      nodes::TransformSettings{
+    .node_name = "ObjectCollisionEstimator",
+    .input_topic = "RayGroundFilter",
+    .output_topic = "ObjectCollisionEstimator",
+    .number_crunch_limit = TimingConfig::OBJECT_COLLISION_ESTIMATOR}));
+
+  nodes.emplace_back(
+    std::make_shared<typename SystemType::Transform>(
+      nodes::TransformSettings{
+    .node_name = "MPCController",
+    .input_topic = "ObjectCollisionEstimator",
+    .output_topic = "MPCController",
+    .number_crunch_limit = TimingConfig::MPC_CONTROLLER}));
+
+  nodes.emplace_back(
+    std::make_shared<typename SystemType::Transform>(
+      nodes::TransformSettings{
+    .node_name = "ParkingPlanner",
+    .input_topic = "MPCController",
+    .output_topic = "ParkingPlanner",
+    .number_crunch_limit = TimingConfig::PARKING_PLANNER}));
+
+  nodes.emplace_back(
+    std::make_shared<typename SystemType::Transform>(
+      nodes::TransformSettings{
+    .node_name = "LanePlanner",
+    .input_topic = "ParkingPlanner",
+    .output_topic = "LanePlanner",
+    .number_crunch_limit = TimingConfig::LANE_PLANNER}));
+
+  // command node
+  nodes.emplace_back(
+    std::make_shared<typename SystemType::Command>(
+      nodes::CommandSettings{
+    .node_name = "VehicleDBWSystem", .input_topic = "LanePlanner"}));
+
+#pragma GCC diagnostic pop
+
+  return nodes;
+}
+
+template<typename SystemType, typename TimingConfig>
 auto create_fusion_test_nodes()
 ->std::vector<std::shared_ptr<typename SystemType::NodeBaseType>>
 {
