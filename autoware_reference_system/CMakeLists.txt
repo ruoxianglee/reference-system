@@ -37,6 +37,11 @@ if(${FRAMEWORK} STREQUAL ros)
   # Single Threaded Executor
   add_benchmark_executable(autoware_default_singlethreaded
     src/ros2/executor/autoware_default_singlethreaded.cpp)
+
+  # Single Threaded Executor
+  add_benchmark_executable(fusion_test
+    src/ros2/executor/fusion_test.cpp)
+
   # Multi Threaded Executor
   add_benchmark_executable(autoware_default_multithreaded
     src/ros2/executor/autoware_default_multithreaded.cpp)
