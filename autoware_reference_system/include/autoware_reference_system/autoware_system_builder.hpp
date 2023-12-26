@@ -280,78 +280,78 @@ auto create_single_chain_nodes()
       nodes::TransformSettings{
     .node_name = "PointsTransformerFront",
     .input_topic = "FrontLidarDriver",
-    .output_topic = "PointsTransformerFront",
+    .output_topic = "PointsTransformerFrontOutput",
     .number_crunch_limit = TimingConfig::POINTS_TRANSFORMER_FRONT}));
 
   nodes.emplace_back(
     std::make_shared<typename SystemType::Transform>(
       nodes::TransformSettings{
     .node_name = "PointsTransformerRear",
-    .input_topic = "PointsTransformerFront",
-    .output_topic = "PointsTransformerRear",
+    .input_topic = "PointsTransformerFrontOutput",
+    .output_topic = "PointsTransformerRearOutput",
     .number_crunch_limit = TimingConfig::POINTS_TRANSFORMER_REAR}));
 
   nodes.emplace_back(
     std::make_shared<typename SystemType::Transform>(
       nodes::TransformSettings{
     .node_name = "VoxelGridDownsampler",
-    .input_topic = "PointsTransformerRear",
-    .output_topic = "VoxelGridDownsampler",
+    .input_topic = "PointsTransformerRearOutput",
+    .output_topic = "VoxelGridDownsamplerOutput",
     .number_crunch_limit = TimingConfig::VOXEL_GRID_DOWNSAMPLER}));
 
   nodes.emplace_back(
     std::make_shared<typename SystemType::Transform>(
       nodes::TransformSettings{
     .node_name = "PointCloudMapLoader",
-    .input_topic = "VoxelGridDownsampler",
-    .output_topic = "PointCloudMapLoader",
+    .input_topic = "VoxelGridDownsamplerOutput",
+    .output_topic = "PointCloudMapLoaderOutput",
     .number_crunch_limit = TimingConfig::POINT_CLOUD_MAP_LOADER}));
 
   nodes.emplace_back(
     std::make_shared<typename SystemType::Transform>(
       nodes::TransformSettings{
     .node_name = "RayGroundFilter",
-    .input_topic = "PointCloudMapLoader",
-    .output_topic = "RayGroundFilter",
+    .input_topic = "PointCloudMapLoaderOutput",
+    .output_topic = "RayGroundFilterOutput",
     .number_crunch_limit = TimingConfig::RAY_GROUND_FILTER}));
 
   nodes.emplace_back(
     std::make_shared<typename SystemType::Transform>(
       nodes::TransformSettings{
     .node_name = "ObjectCollisionEstimator",
-    .input_topic = "RayGroundFilter",
-    .output_topic = "ObjectCollisionEstimator",
+    .input_topic = "RayGroundFilterOutput",
+    .output_topic = "ObjectCollisionEstimatorOutput",
     .number_crunch_limit = TimingConfig::OBJECT_COLLISION_ESTIMATOR}));
 
   nodes.emplace_back(
     std::make_shared<typename SystemType::Transform>(
       nodes::TransformSettings{
     .node_name = "MPCController",
-    .input_topic = "ObjectCollisionEstimator",
-    .output_topic = "MPCController",
+    .input_topic = "ObjectCollisionEstimatorOutput",
+    .output_topic = "MPCControllerOutput",
     .number_crunch_limit = TimingConfig::MPC_CONTROLLER}));
 
   nodes.emplace_back(
     std::make_shared<typename SystemType::Transform>(
       nodes::TransformSettings{
     .node_name = "ParkingPlanner",
-    .input_topic = "MPCController",
-    .output_topic = "ParkingPlanner",
+    .input_topic = "MPCControllerOutput",
+    .output_topic = "ParkingPlannerOutput",
     .number_crunch_limit = TimingConfig::PARKING_PLANNER}));
 
   nodes.emplace_back(
     std::make_shared<typename SystemType::Transform>(
       nodes::TransformSettings{
     .node_name = "LanePlanner",
-    .input_topic = "ParkingPlanner",
-    .output_topic = "LanePlanner",
+    .input_topic = "ParkingPlannerOutput",
+    .output_topic = "LanePlannerOutput",
     .number_crunch_limit = TimingConfig::LANE_PLANNER}));
 
   // command node
   nodes.emplace_back(
     std::make_shared<typename SystemType::Command>(
       nodes::CommandSettings{
-    .node_name = "VehicleDBWSystem", .input_topic = "LanePlanner"}));
+    .node_name = "VehicleDBWSystem", .input_topic = "LanePlannerOutput"}));
 
 #pragma GCC diagnostic pop
 
