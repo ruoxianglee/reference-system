@@ -38,11 +38,19 @@ if(${FRAMEWORK} STREQUAL ros)
   add_benchmark_executable(autoware_default_singlethreaded
     src/ros2/executor/autoware_default_singlethreaded.cpp)
 
-  # Single Threaded Executor
+  # Single Threaded Executor - Only hot path
+  add_benchmark_executable(autoware_default_singlethreaded_hot_path
+    src/ros2/executor/autoware_default_singlethreaded_hot_path.cpp)
+
+  # Single Threaded Executor - Chain path (hot path has only one root node)
+  add_benchmark_executable(autoware_default_singlethreaded_chain_path
+  src/ros2/executor/autoware_default_singlethreaded_chain_path.cpp)
+
+  # Single Threaded Executor - Fusion node testing
   add_benchmark_executable(fusion_test
     src/ros2/executor/fusion_test.cpp)
 
-  # Single chain Single threaded executor
+  # Single threaded executor - Single chain testing
   add_benchmark_executable(single_chain_default_singlethreaded
   src/ros2/executor/single_chain_default_singlethreaded.cpp)
 
