@@ -572,13 +572,13 @@ auto create_autoware_hot_path_nodes()
     .output_topic = "RayGroundFilter",
     .number_crunch_limit = TimingConfig::RAY_GROUND_FILTER}));
 
-  nodes.emplace_back(
-    std::make_shared<typename SystemType::Transform>(
-      nodes::TransformSettings{
-    .node_name = "ObjectCollisionEstimator",
-    .input_topic = "EuclideanClusterDetector",
-    .output_topic = "ObjectCollisionEstimator",
-    .number_crunch_limit = TimingConfig::OBJECT_COLLISION_ESTIMATOR}));
+  // nodes.emplace_back(
+  //   std::make_shared<typename SystemType::Transform>(
+  //     nodes::TransformSettings{
+  //   .node_name = "ObjectCollisionEstimator",
+  //   .input_topic = "EuclideanClusterDetector",
+  //   .output_topic = "ObjectCollisionEstimator",
+  //   .number_crunch_limit = TimingConfig::OBJECT_COLLISION_ESTIMATOR}));
 
   // nodes.emplace_back(
   //   std::make_shared<typename SystemType::Transform>(
@@ -680,6 +680,11 @@ auto create_autoware_hot_path_nodes()
   //   std::make_shared<typename SystemType::Command>(
   //     nodes::CommandSettings{
   //   .node_name = "VehicleDBWSystem", .input_topic = "VehicleInterface"}));
+
+  nodes.emplace_back(
+    std::make_shared<typename SystemType::Command>(
+      nodes::CommandSettings{.node_name = "ObjectCollisionEstimator",
+        .input_topic = "EuclideanClusterDetector"}));
 
   nodes.emplace_back(
     std::make_shared<typename SystemType::Command>(
