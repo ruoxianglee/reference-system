@@ -1,0 +1,46 @@
+- node_name: /EuclideanClusterDetector
+  callback_groups:
+  - callback_group_type: mutually_exclusive
+    callback_group_name: /EuclideanClusterDetector/callback_group_0
+    callback_names:
+    - /EuclideanClusterDetector/callback_0
+    - /EuclideanClusterDetector/callback_1
+  callbacks:
+  - callback_name: /EuclideanClusterDetector/callback_0
+    callback_type: subscription_callback
+    topic_name: /RayGroundFilter
+    symbol: nodes::rclcpp_system::Intersection::Intersection(nodes::IntersectionSettings
+      const&)::{lambda(std::shared_ptr<reference_interfaces::msg::Message4kb_<std::allocator<void>
+      > >)#1}
+  - callback_name: /EuclideanClusterDetector/callback_1
+    callback_type: subscription_callback
+    topic_name: /EuclideanClusterSettings
+    symbol: nodes::rclcpp_system::Intersection::Intersection(nodes::IntersectionSettings
+      const&)::{lambda(std::shared_ptr<reference_interfaces::msg::Message4kb_<std::allocator<void>
+      > >)#1}
+  variable_passings:
+  - callback_name_write: UNDEFINED
+    callback_name_read: UNDEFINED
+  publishes:
+  - topic_name: /EuclideanClusterDetector
+    callback_names:
+    - /EuclideanClusterDetector/callback_0
+  - topic_name: /EuclideanIntersection
+    callback_names:
+    - /EuclideanClusterDetector/callback_1
+  subscribes:
+  - topic_name: /EuclideanClusterSettings
+    callback_name: /EuclideanClusterDetector/callback_1
+  - topic_name: /RayGroundFilter
+    callback_name: /EuclideanClusterDetector/callback_0
+  message_contexts:
+  - context_type: callback_chain
+    subscription_topic_name: /RayGroundFilter
+    publisher_topic_name: /EuclideanClusterDetector
+    callbacks:
+    - /EuclideanClusterDetector/callback_0
+  - context_type: callback_chain
+    subscription_topic_name: /EuclideanClusterSettings
+    publisher_topic_name: /EuclideanIntersection
+    callbacks:
+    - /EuclideanClusterDetector/callback_1

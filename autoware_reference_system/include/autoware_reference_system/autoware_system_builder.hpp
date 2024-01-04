@@ -31,14 +31,14 @@ auto create_autoware_nodes()
 
   SampleManagementSettings::get().set_hot_path(
     {"FrontLidarDriver",
-      "RearLidarDriver",
+      // "RearLidarDriver",
       "PointsTransformerFront",
-      "PointsTransformerRear",
+      // "PointsTransformerRear",
       "PointCloudFusion",
       "RayGroundFilter",
       "EuclideanClusterDetector",
       "ObjectCollisionEstimator"},
-    {"FrontLidarDriver", "RearLidarDriver"},
+    {"FrontLidarDriver"},
     "ObjectCollisionEstimator");
 
 // ignore the warning about designated initializers - they make the code much

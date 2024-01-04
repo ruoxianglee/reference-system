@@ -1,0 +1,39 @@
+- node_name: /VehicleInterface
+  callback_groups:
+  - callback_group_type: mutually_exclusive
+    callback_group_name: /VehicleInterface/callback_group_0
+    callback_names:
+    - /VehicleInterface/callback_0
+    - /VehicleInterface/callback_1
+  callbacks:
+  - callback_name: /VehicleInterface/callback_0
+    callback_type: subscription_callback
+    topic_name: /MPCController
+    symbol: nodes::rclcpp_system::Fusion::Fusion(nodes::FusionSettings const&)::{lambda(std::shared_ptr<reference_interfaces::msg::Message4kb_<std::allocator<void>
+      > >)#1}
+  - callback_name: /VehicleInterface/callback_1
+    callback_type: subscription_callback
+    topic_name: /BehaviorPlanner
+    symbol: nodes::rclcpp_system::Fusion::Fusion(nodes::FusionSettings const&)::{lambda(std::shared_ptr<reference_interfaces::msg::Message4kb_<std::allocator<void>
+      > >)#2}
+  variable_passings:
+  - callback_name_write: UNDEFINED
+    callback_name_read: UNDEFINED
+  publishes:
+  - topic_name: /VehicleInterface
+    callback_names:
+    - /VehicleInterface/callback_0
+  subscribes:
+  - topic_name: /BehaviorPlanner
+    callback_name: /VehicleInterface/callback_1
+  - topic_name: /MPCController
+    callback_name: /VehicleInterface/callback_0
+  message_contexts:
+  - context_type: UNDEFINED
+    subscription_topic_name: /BehaviorPlanner
+    publisher_topic_name: /VehicleInterface
+  - context_type: callback_chain
+    subscription_topic_name: /MPCController
+    publisher_topic_name: /VehicleInterface
+    callbacks:
+      - /VehicleInterface/callback_0
