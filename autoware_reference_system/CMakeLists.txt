@@ -62,6 +62,9 @@ if(${FRAMEWORK} STREQUAL ros)
   add_benchmark_executable(autoware_default_multithreaded
     src/ros2/executor/autoware_default_multithreaded.cpp)
 
+  add_benchmark_executable(hot_path_default_multithreaded
+    src/ros2/executor/hot_path_default_multithreaded.cpp)
+    
   # Static Single Threaded Executor
   add_benchmark_executable(autoware_default_staticsinglethreaded
     src/ros2/executor/autoware_default_staticsinglethreaded.cpp)
