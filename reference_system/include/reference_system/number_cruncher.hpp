@@ -31,8 +31,8 @@ inline void escape(Tp const & value)
 // This serves as a scalable dummy-workload for the various nodes.
 static inline int64_t number_cruncher(const uint64_t maximum_number)
 {
-  std::usleep(5000); // 5 ms
-  return;
+  usleep(5000); // 5 ms
+  return 0;
 
   int64_t number_of_primes = 0;
   uint64_t initial_value = 2;
