@@ -18,6 +18,8 @@
 #include <cmath>
 #include <vector>
 
+#include<unistd.h>                
+
 // prevents the compiler from optimizing access to value.
 // Taken from http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/p0412r0.html
 template<typename Tp>
@@ -29,6 +31,9 @@ inline void escape(Tp const & value)
 // This serves as a scalable dummy-workload for the various nodes.
 static inline int64_t number_cruncher(const uint64_t maximum_number)
 {
+  std::usleep(5000); // 5 ms
+  return;
+
   int64_t number_of_primes = 0;
   uint64_t initial_value = 2;
   // edge case where max number is too low
