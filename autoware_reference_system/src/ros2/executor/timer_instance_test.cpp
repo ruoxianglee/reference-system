@@ -3,9 +3,6 @@
 
 #include "reference_system/system/type/rclcpp_system.hpp"
 
-#include "reference_system/nodes/rclcpp/publisher.hpp"
-#include "reference_system/nodes/rclcpp/subscriber.hpp"
-
 #include "autoware_reference_system/autoware_system_builder.hpp"
 #include "autoware_reference_system/system/timing/benchmark.hpp"
 #include "autoware_reference_system/system/timing/default.hpp"
