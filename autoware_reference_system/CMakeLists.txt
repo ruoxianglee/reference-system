@@ -55,8 +55,8 @@ if(${FRAMEWORK} STREQUAL ros)
     src/ros2/executor/thread_num_test.cpp)
 
   # Timer instance test
-  add_benchmark_executable(timer_instance_test
-    src/ros2/executor/timer_instance_test.cpp)
+  # add_benchmark_executable(timer_instance_test
+  #   src/ros2/executor/timer_instance_test.cpp)
 
   # Single threaded executor - Single chain testing
   add_benchmark_executable(single_chain_default_singlethreaded

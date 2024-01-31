@@ -20,10 +20,6 @@
 #include "reference_system/nodes/rclcpp/sensor.hpp"
 #include "reference_system/nodes/rclcpp/intersection.hpp"
 
-
-// #include "reference_system/nodes/rclcpp/publisher.hpp"
-// #include "reference_system/nodes/rclcpp/subscriber.hpp"
-
 struct RclcppSystem
 {
   using NodeBaseType = rclcpp::Node;
@@ -34,9 +30,6 @@ struct RclcppSystem
   using Intersection = nodes::rclcpp_system::Intersection;
   using Sensor = nodes::rclcpp_system::Sensor;
   using Transform = nodes::rclcpp_system::Transform;
-  
-  using MinimalPublisher = nodes::rclcpp_system::MinimalPublisher;
-  using MinimalSubscriber = nodes::rclcpp_system::MinimalSubscriber;
 };
 
 #endif  // REFERENCE_SYSTEM__SYSTEM__TYPE__RCLCPP_SYSTEM_HPP_
