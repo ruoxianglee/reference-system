@@ -14,8 +14,6 @@
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
-
-  // std::vector<std::shared_ptr<typename SystemType::NodeBaseType>> nodes;
   
   auto pub_node = std::make_shared<MinimalPublisher>();
   auto sub_node = std::make_shared<MinimalSubscriber>();
@@ -24,7 +22,7 @@ int main(int argc, char * argv[])
 
   executor.add_node(pub_node);
   executor.add_node(sub_node);
-  
+
   executor.spin();
 
   rclcpp::shutdown();
