@@ -8,25 +8,25 @@
 #include "autoware_reference_system/system/timing/default.hpp"
 #include <chrono>
 
-using time_t = std::chrono::nanoseconds;
-using milliseconds = std::chrono::milliseconds;
+// using time_t = std::chrono::nanoseconds;
+// using milliseconds = std::chrono::milliseconds;
 
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
 
-  std::vector<std::shared_ptr<typename SystemType::NodeBaseType>> nodes;
+  // std::vector<std::shared_ptr<typename SystemType::NodeBaseType>> nodes;
   
-  nodes.emplace_back(std::make_shared<MinimalSubscriber>());
-  nodes.emplace_back(std::make_shared<MinimalPublisher>());
+  auto pub_node = std::make_shared<MinimalPublisher>();
+  auto sub_node = std::make_shared<MinimalSubscriber>();
 
   rclcpp::executors::SingleThreadedExecutor executor;
-  for (auto & node : nodes) {
-    executor.add_node(node);
-  }
+
+  executor.add_node(pub_node);
+  executor.add_node(sub_node);
+  
   executor.spin();
 
-  nodes.clear();
   rclcpp::shutdown();
 
   return 0;
