@@ -21,6 +21,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 find_package(ament_cmake_auto REQUIRED)
+find_package(std_msgs REQUIRED)
 ament_auto_find_build_dependencies()
 
 # Number Cruncher Benchmark
@@ -55,8 +56,8 @@ if(${FRAMEWORK} STREQUAL ros)
     src/ros2/executor/thread_num_test.cpp)
 
   # Timer instance test
-  # add_benchmark_executable(timer_instance_test
-  #   src/ros2/executor/timer_instance_test.cpp)
+  add_benchmark_executable(timer_instance_test
+    src/ros2/executor/timer_instance_test.cpp)
 
   # Single threaded executor - Single chain testing
   add_benchmark_executable(single_chain_default_singlethreaded
