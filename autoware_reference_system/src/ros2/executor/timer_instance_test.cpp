@@ -59,7 +59,7 @@ public:
 private:
   void topic_callback(const std_msgs::msg::String & msg) const
   {
-    usleep(50000); // 50 ms
+    usleep(500000); // 500 ms
     RCLCPP_INFO(this->get_logger(), "I heard: '%s'", msg.data.c_str());
   }
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_;
