@@ -19,7 +19,7 @@
 #include <vector>
 
 #include<unistd.h>                
-
+#include <random>
 // prevents the compiler from optimizing access to value.
 // Taken from http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/p0412r0.html
 template<typename Tp>
@@ -31,7 +31,13 @@ inline void escape(Tp const & value)
 // This serves as a scalable dummy-workload for the various nodes.
 static inline int64_t number_cruncher(const uint64_t maximum_number)
 {
-  usleep(5000); // 5 ms
+  // std::random_device rd;
+  // std::mt19937 gen(rd());
+  // std::uniform_real_distribution<> dis(0, 10);
+  // double jitter = dis(gen);
+  // usleep(20000 - jitter*1000); // 20 ms - jitter
+
+  usleep(20000); // 20ms
   return 0;
 
   int64_t number_of_primes = 0;
