@@ -18,7 +18,8 @@
 #include <utility>
 #include <vector>
 #include <memory>
-
+#include<unistd.h>                
+#include <random>
 #include "rclcpp/rclcpp.hpp"
 #include "reference_system/msg_types.hpp"
 #include "reference_system/nodes/settings.hpp"
@@ -71,8 +72,14 @@ private:
     const uint64_t id)
   {
     uint64_t timestamp = now_as_int();
-    auto number_cruncher_result =
-      number_cruncher(connections_[id].number_crunch_limit);
+    auto number_cruncher_result = 9;
+      // number_cruncher(connections_[id].number_crunch_limit);
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> dis(0, 10);
+    double jitter = dis(gen);
+    usleep(20000 - jitter*1000); // 20 ms - jitter
 
     auto output_message = connections_[id].publisher->borrow_loaned_message();
     output_message.get().size = 0;
