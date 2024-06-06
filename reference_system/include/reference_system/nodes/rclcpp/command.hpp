@@ -43,7 +43,7 @@ private:
   {
     uint32_t missed_samples =
       get_missed_samples_and_update_seq_nr(input_message, sequence_number_);
-    print_sample_path(this->get_name(), missed_samples, input_message);
+    // print_sample_path(this->get_name(), missed_samples, input_message);
   }
 
 private:
