@@ -696,6 +696,87 @@ auto create_autoware_hot_path_nodes()
 }
 
 template<typename SystemType, typename TimingConfig>
+auto create_autoware_simplied_nodes()
+->std::vector<std::shared_ptr<typename SystemType::NodeBaseType>>
+{
+  std::vector<std::shared_ptr<typename SystemType::NodeBaseType>> nodes;
+
+  SampleManagementSettings::get().set_hot_path(
+    {"FrontLidarDriver",
+      "PointsTransformerFront",
+      "RayGroundFilter",
+      "EuclideanClusterDetector",
+      "ObjectCollisionEstimator"},
+    {"FrontLidarDriver"
+    // , "RearLidarDriver"
+    },
+    "ObjectCollisionEstimator");
+
+// ignore the warning about designated initializers - they make the code much
+// more readable
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpedantic"
+
+  // setup communication graph
+  // sensor nodes
+  nodes.emplace_back(
+    std::make_shared<typename SystemType::Sensor>(
+      nodes::SensorSettings{.node_name = "FrontLidarDriver",
+        .topic_name = "FrontLidarDriver",
+        .cycle_time = TimingConfig::FRONT_LIDAR_DRIVER}));
+
+  nodes.emplace_back(
+    std::make_shared<typename SystemType::Sensor>(
+      nodes::SensorSettings{
+    .node_name = "EuclideanClusterSettings",
+    .topic_name = "EuclideanClusterSettings",
+    .cycle_time = TimingConfig::EUCLIDEAN_CLUSTER_SETTINGS}));
+
+  // transform nodes
+  nodes.emplace_back(
+    std::make_shared<typename SystemType::Transform>(
+      nodes::TransformSettings{
+    .node_name = "PointsTransformerFront",
+    .input_topic = "FrontLidarDriver",
+    .output_topic = "PointsTransformerFront",
+    .number_crunch_limit = TimingConfig::POINTS_TRANSFORMER_FRONT}));
+
+  nodes.emplace_back(
+    std::make_shared<typename SystemType::Transform>(
+      nodes::TransformSettings{
+    .node_name = "RayGroundFilter",
+    .input_topic = "PointsTransformerFront",
+    .output_topic = "RayGroundFilter",
+    .number_crunch_limit = TimingConfig::RAY_GROUND_FILTER}));
+
+  // intersection node
+  nodes.emplace_back(
+    std::make_shared<typename SystemType::Intersection>(
+      nodes::IntersectionSettings{
+    .node_name = "EuclideanClusterDetector",
+    .connections = {
+      {.input_topic = "RayGroundFilter",
+        .output_topic = "EuclideanClusterDetector",
+        .number_crunch_limit = TimingConfig::EUCLIDEAN_CLUSTER_DETECTOR},
+      {.input_topic = "EuclideanClusterSettings",
+        .output_topic = "EuclideanIntersection",
+        .number_crunch_limit = TimingConfig::EUCLIDEAN_INTERSECTION}}}));
+
+  nodes.emplace_back(
+    std::make_shared<typename SystemType::Command>(
+      nodes::CommandSettings{.node_name = "ObjectCollisionEstimator",
+        .input_topic = "EuclideanClusterDetector"}));
+
+  nodes.emplace_back(
+    std::make_shared<typename SystemType::Command>(
+      nodes::CommandSettings{.node_name = "IntersectionOutput",
+        .input_topic = "EuclideanIntersection"}));
+#pragma GCC diagnostic pop
+
+  return nodes;
+}
+
+template<typename SystemType, typename TimingConfig>
 auto create_single_chain_nodes()
 ->std::vector<std::shared_ptr<typename SystemType::NodeBaseType>>
 {
