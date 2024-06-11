@@ -36,7 +36,7 @@ static inline int64_t number_cruncher(const uint64_t maximum_number)
   std::mt19937 gen(rd());
   std::uniform_real_distribution<> dis(0, 80);
   double jitter = dis(gen);
-  usleep(150000 - jitter*1000); // 80 ms - jitter
+  usleep(100000 - jitter*1000); // 100 ms - jitter
 
   // Test 3: 
   // usleep(20000); // 20ms
