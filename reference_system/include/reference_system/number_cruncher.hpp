@@ -31,12 +31,14 @@ inline void escape(Tp const & value)
 // This serves as a scalable dummy-workload for the various nodes.
 static inline int64_t number_cruncher(const uint64_t maximum_number)
 {
+  // Test 2: T ms - jitter (jitter: uniform real distribution 0-80)
   std::random_device rd;
   std::mt19937 gen(rd());
   std::uniform_real_distribution<> dis(0, 80);
   double jitter = dis(gen);
-  usleep(150000 - jitter*1000); // 150 ms - jitter
+  usleep(150000 - jitter*1000); // 100 ms - jitter
 
+  // Test 3: 
   // usleep(20000); // 20ms
   return 0;
 
