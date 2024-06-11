@@ -94,27 +94,27 @@ int main(int argc, char ** argv)
   }
 
   std::thread timer_thread {[&]() {
-      // set_rt_properties(99, 3);
+      set_rt_properties(99, 3);
       std::cout << "Thread timer is running on CPU: " << sched_getcpu() << std::endl;
       timer_exe.spin();
     }};
   std::thread tranformer_thread {[&]() {
-      // set_rt_properties(99, 4);
+      set_rt_properties(99, 4);
       std::cout << "Thread tranformer is running on CPU: " << sched_getcpu() << std::endl;
       tranformer_exe.spin();
     }};
   std::thread filter_thread {[&]() {
-      // set_rt_properties(99, 5);
+      set_rt_properties(99, 5);
       std::cout << "Thread filter is running on CPU: " << sched_getcpu() << std::endl;
       filter_exe.spin();
     }};
   std::thread detector_thread {[&]() {
-      // set_rt_properties(99, 6);
+      set_rt_properties(99, 6);
       std::cout << "Thread detector is running on CPU: " << sched_getcpu() << std::endl;
       detector_exe.spin();
     }};
   std::thread estimator_thread {[&]() {
-      // set_rt_properties(99, 7);
+      set_rt_properties(99, 7);
       std::cout << "Thread estimator is running on CPU: " << sched_getcpu() << std::endl;
       estimator_exe.spin();
     }};
