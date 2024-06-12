@@ -44,6 +44,48 @@ void set_rt_properties(int prio, int cpu)
   sched_setaffinity(0, sizeof(cpuset), &cpuset);
 }
 
+void sleep_randomly(double mean, double stddev) {
+    // Initialize random number generator
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::normal_distribution<> dist(mean, stddev);
+
+    // Generate a random sleep duration
+    double sleepTime = dist(gen);
+
+    // Ensure that the sleep time is non-negative
+    if (sleepTime < 0) {
+        sleepTime = 0;
+    }
+
+    // Convert the sleep time to milliseconds
+    auto sleepDuration = std::chrono::milliseconds(static_cast<int>(sleepTime));
+
+    // Sleep for the generated duration
+    std::this_thread::sleep_for(sleepDuration);
+}
+
+void cpu_dummy_task() {
+    // while (true) {
+    //     volatile unsigned long long sum = 0;
+    //     for (unsigned long long i = 0; i < 1000000000; ++i) {
+    //         sum += i;
+    //     }
+    // }
+    
+    // std::random_device rd;
+    // std::mt19937 gen(rd());
+    // std::uniform_real_distribution<> dis(0, 50);
+    // double jitter = dis(gen);
+    // usleep(150000 - jitter*1000); // 150 ms - jitter
+
+    // usleep(150000);
+    sleep_randomly(80,5);
+}
+
+int executor_thread_prio = 98;
+int dummy_task_prio = 99;
+
 int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
@@ -93,28 +135,40 @@ int main(int argc, char ** argv)
     estimator_exe.add_node(nodes.at(node));
   }
 
+  int core_ids[5] = {3, 4, 5, 6, 7};
+
+  // Launch multiple dummy tasks
+  // int num_of_dummy_tasks = 1;  // Adjust for more contention
+  // std::vector<std::thread> dummy_threads;
+  // for (int i = 0; i < num_of_dummy_tasks; ++i) {
+  //     dummy_threads.emplace_back([core_ids[i+1]]() {
+  //         set_rt_properties(dummy_task_prio, core_ids[i+1]);
+  //         cpu_dummy_task();
+  //     });
+  // }
+
   std::thread timer_thread {[&]() {
-      set_rt_properties(99, 3);
+      set_rt_properties(executor_thread_prio, core_ids[0]);
       std::cout << "Thread timer is running on CPU: " << sched_getcpu() << std::endl;
       timer_exe.spin();
     }};
   std::thread tranformer_thread {[&]() {
-      set_rt_properties(99, 4);
+      set_rt_properties(executor_thread_prio, core_ids[1]);
       std::cout << "Thread tranformer is running on CPU: " << sched_getcpu() << std::endl;
       tranformer_exe.spin();
     }};
   std::thread filter_thread {[&]() {
-      set_rt_properties(99, 5);
+      set_rt_properties(executor_thread_prio, core_ids[2]);
       std::cout << "Thread filter is running on CPU: " << sched_getcpu() << std::endl;
       filter_exe.spin();
     }};
   std::thread detector_thread {[&]() {
-      set_rt_properties(99, 6);
+      set_rt_properties(executor_thread_prio, core_ids[3]);
       std::cout << "Thread detector is running on CPU: " << sched_getcpu() << std::endl;
       detector_exe.spin();
     }};
   std::thread estimator_thread {[&]() {
-      set_rt_properties(99, 7);
+      set_rt_properties(executor_thread_prio, core_ids[4]);
       std::cout << "Thread estimator is running on CPU: " << sched_getcpu() << std::endl;
       estimator_exe.spin();
     }};
@@ -124,6 +178,11 @@ int main(int argc, char ** argv)
   filter_thread.join();
   detector_thread.join();
   estimator_thread.join();
+
+  // Optionally, keep the main thread alive
+  // for (auto& thread : dummy_threads) {
+  //     thread.join();
+  // }
 
   rclcpp::shutdown();
 }

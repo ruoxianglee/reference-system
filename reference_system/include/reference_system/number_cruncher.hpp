@@ -27,6 +27,28 @@ inline void escape(Tp const & value)
 {
   asm volatile ("" : : "g" (value) : "memory");
 }
+
+void sleep_randomly(double mean, double stddev) {
+    // Initialize random number generator
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::normal_distribution<> dist(mean, stddev);
+
+    // Generate a random sleep duration
+    double sleepTime = dist(gen);
+
+    // Ensure that the sleep time is non-negative
+    if (sleepTime < 0) {
+        sleepTime = 0;
+    }
+
+    // Convert the sleep time to milliseconds
+    auto sleepDuration = std::chrono::milliseconds(static_cast<int>(sleepTime));
+
+    // Sleep for the generated duration
+    std::this_thread::sleep_for(sleepDuration);
+}
+
 // Computes an expensive function (count number of primes below maximum_number)
 // This serves as a scalable dummy-workload for the various nodes.
 static inline int64_t number_cruncher(const uint64_t maximum_number)
@@ -38,7 +60,7 @@ static inline int64_t number_cruncher(const uint64_t maximum_number)
   // double jitter = dis(gen);
   // usleep(150000 - jitter*1000); // 150 ms - jitter
 
-  usleep(150000); // 20ms
+  usleep(80000); // 20ms
   return 0;
 
   int64_t number_of_primes = 0;
