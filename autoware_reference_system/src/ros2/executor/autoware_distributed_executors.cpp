@@ -117,14 +117,14 @@ int main(int argc, char ** argv)
   int core_ids[5] = {3, 4, 5, 6, 7};
 
   // Launch multiple dummy tasks
-  // int num_of_dummy_tasks = 1;  // Adjust for more contention
-  // std::vector<std::thread> dummy_threads;
-  // for (int i = 0; i < num_of_dummy_tasks; ++i) {
-  //     dummy_threads.emplace_back([core_ids[i+1]]() {
-  //         set_rt_properties(dummy_task_prio, core_ids[i+1]);
-  //         cpu_dummy_task();
-  //     });
-  // }
+  int num_of_dummy_tasks = 1;  // Adjust for more contention
+  std::vector<std::thread> dummy_threads;
+  for (int i = 0; i < num_of_dummy_tasks; ++i) {
+      dummy_threads.emplace_back([core_ids[i+1]]() {
+          set_rt_properties(dummy_task_prio, core_ids[i+1]);
+          cpu_dummy_task();
+      });
+  }
 
   std::thread timer_thread {[&]() {
       set_rt_properties(executor_thread_prio, core_ids[0]);
@@ -159,9 +159,9 @@ int main(int argc, char ** argv)
   estimator_thread.join();
 
   // Optionally, keep the main thread alive
-  // for (auto& thread : dummy_threads) {
-  //     thread.join();
-  // }
+  for (auto& thread : dummy_threads) {
+      thread.join();
+  }
 
   rclcpp::shutdown();
 }
