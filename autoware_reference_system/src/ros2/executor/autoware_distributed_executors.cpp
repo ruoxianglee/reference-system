@@ -120,7 +120,7 @@ int main(int argc, char ** argv)
   int num_of_dummy_tasks = 1;  // Adjust for more contention
   std::vector<std::thread> dummy_threads;
   for (int i = 0; i < num_of_dummy_tasks; ++i) {
-      dummy_threads.emplace_back([core_ids[i+1]]() {
+      dummy_threads.emplace_back([core_ids, i]() {
           set_rt_properties(dummy_task_prio, core_ids[i+1]);
           cpu_dummy_task();
       });
