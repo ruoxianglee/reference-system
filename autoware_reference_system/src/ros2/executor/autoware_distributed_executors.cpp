@@ -44,27 +44,6 @@ void set_rt_properties(int prio, int cpu)
   sched_setaffinity(0, sizeof(cpuset), &cpuset);
 }
 
-void sleep_randomly(double mean, double stddev) {
-    // Initialize random number generator
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::normal_distribution<> dist(mean, stddev);
-
-    // Generate a random sleep duration
-    double sleepTime = dist(gen);
-
-    // Ensure that the sleep time is non-negative
-    if (sleepTime < 0) {
-        sleepTime = 0;
-    }
-
-    // Convert the sleep time to milliseconds
-    auto sleepDuration = std::chrono::milliseconds(static_cast<int>(sleepTime));
-
-    // Sleep for the generated duration
-    std::this_thread::sleep_for(sleepDuration);
-}
-
 void cpu_dummy_task() {
     // while (true) {
     //     volatile unsigned long long sum = 0;
