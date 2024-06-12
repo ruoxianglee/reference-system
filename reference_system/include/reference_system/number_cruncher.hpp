@@ -17,6 +17,7 @@
 #include <chrono>
 #include <cmath>
 #include <vector>
+#include <thread>
 
 #include<unistd.h>                
 #include <random>
