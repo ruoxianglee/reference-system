@@ -123,6 +123,7 @@ int main(int argc, char ** argv)
       dummy_threads.emplace_back([core_ids, i]() {
           set_rt_properties(dummy_task_prio, core_ids[i+1]);
           cpu_dummy_task();
+          std::cout << "Dummy task " << i << " is running on CPU: " << sched_getcpu() << std::endl;
       });
   }
 
