@@ -21,6 +21,10 @@
 #include <pthread.h>
 #include <sched.h>
 #include <stdio.h>
+#include <iostream>
+#include <sys/time.h>
+#include <sys/resource.h>
+#include <unistd.h>
 
 #include "rclcpp/rclcpp.hpp"
 
@@ -31,15 +35,26 @@
 #include "autoware_reference_system/system/timing/default.hpp"
 #include "autoware_reference_system/priorities.hpp"
 
-int executor_thread_prio = 98;
-int dummy_task_prio = 99;
+int executor_thread_prio = 0; //nice value
+int dummy_task_prio = -10;
 
 void set_rt_properties(int prio, int cpu)
 {
+  // Method 1: set scheduling policy and priority
   // struct sched_param sched_param = { 0 };
   // sched_param.sched_priority = prio;
-  // sched_setscheduler(0, SCHED_FIFO, &sched_param);
+  // sched_setscheduler(0, SCHED_OTHER, &sched_param);
+    
+  // Method 2: set nice value
+  pid_t tid = syscall(SYS_gettid);
+  int ret = setpriority(PRIO_PROCESS, tid, prio);
+  if (ret == 0) {
+      std::cout << "Nice value of thread " << tid << " set to " << prio << std::endl;
+  } else {
+      perror("setpriority");
+  }
 
+  // Bind thread to specific CPU core
   cpu_set_t cpuset;
   CPU_ZERO(&cpuset);
   CPU_SET(cpu, &cpuset);
@@ -117,15 +132,15 @@ int main(int argc, char ** argv)
   int core_ids[5] = {3, 4, 5, 6, 7};
 
   // Launch multiple dummy tasks
-  // int num_of_dummy_tasks = 1;  // Adjust for more contention
-  // std::vector<std::thread> dummy_threads;
-  // for (int i = 0; i < num_of_dummy_tasks; ++i) {
-  //     dummy_threads.emplace_back([core_ids, i]() {
-  //         set_rt_properties(dummy_task_prio, core_ids[i+1]);
-  //         cpu_dummy_task();
-  //         std::cout << "Dummy task " << i << " is running on CPU: " << sched_getcpu() << std::endl;
-  //     });
-  // }
+  int num_of_dummy_tasks = 10;  // Adjust for more contention
+  std::vector<std::thread> dummy_threads;
+  for (int i = 0; i < num_of_dummy_tasks; ++i) {
+      dummy_threads.emplace_back([core_ids]() {
+          set_rt_properties(dummy_task_prio, core_ids[1]);
+          cpu_dummy_task();
+          std::cout << "Dummy task " << i << " is running on CPU: " << sched_getcpu() << std::endl;
+      });
+  }
 
   std::thread timer_thread {[&]() {
       set_rt_properties(executor_thread_prio, core_ids[0]);
@@ -159,10 +174,9 @@ int main(int argc, char ** argv)
   detector_thread.join();
   estimator_thread.join();
 
-  // Optionally, keep the main thread alive
-  // for (auto& thread : dummy_threads) {
-  //     thread.join();
-  // }
+  for (auto& thread : dummy_threads) {
+      thread.join();
+  }
 
   rclcpp::shutdown();
 }
