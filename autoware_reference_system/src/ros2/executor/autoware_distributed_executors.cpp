@@ -136,7 +136,7 @@ int main(int argc, char ** argv)
   int num_of_dummy_tasks = 10;  // Adjust for more contention
   std::vector<std::thread> dummy_threads;
   for (int i = 0; i < num_of_dummy_tasks; ++i) {
-      dummy_threads.emplace_back([core_ids]() {
+      dummy_threads.emplace_back([core_ids, i]() {
           set_rt_properties(dummy_task_prio, core_ids[1]);
           cpu_dummy_task();
           std::cout << "Dummy task " << i << " is running on CPU: " << sched_getcpu() << std::endl;
