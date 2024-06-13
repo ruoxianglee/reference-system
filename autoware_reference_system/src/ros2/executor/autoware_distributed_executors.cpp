@@ -25,6 +25,7 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <unistd.h>
+#include <sys/syscall.h>
 
 #include "rclcpp/rclcpp.hpp"
 
