@@ -66,7 +66,7 @@ static inline int64_t number_cruncher(const uint64_t maximum_number)
       usleep(80000); // 80ms
       return 0;
     case 2:
-      usleep(150000); // 150ms
+      usleep(80000); // 150ms
       return 0;
     case 3:
       usleep(80000); // 80ms

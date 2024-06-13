@@ -31,11 +31,14 @@
 #include "autoware_reference_system/system/timing/default.hpp"
 #include "autoware_reference_system/priorities.hpp"
 
+int executor_thread_prio = 98;
+int dummy_task_prio = 99;
+
 void set_rt_properties(int prio, int cpu)
 {
-  struct sched_param sched_param = { 0 };
-  sched_param.sched_priority = prio;
-  sched_setscheduler(0, SCHED_FIFO, &sched_param);
+  // struct sched_param sched_param = { 0 };
+  // sched_param.sched_priority = prio;
+  // sched_setscheduler(0, SCHED_FIFO, &sched_param);
 
   cpu_set_t cpuset;
   CPU_ZERO(&cpuset);
@@ -61,9 +64,6 @@ void cpu_dummy_task() {
     // usleep(150000);
     sleep_randomly(80,5);
 }
-
-int executor_thread_prio = 98;
-int dummy_task_prio = 99;
 
 int main(int argc, char ** argv)
 {
