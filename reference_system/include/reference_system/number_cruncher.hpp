@@ -50,9 +50,18 @@ void sleep_randomly(double mean, double stddev) {
     std::this_thread::sleep_for(sleepDuration);
 }
 
+enum class TaskType
+{
+  TIMER,
+  TRANSFORMER,
+  FILTER,
+  DETECTOR,
+  ESTIMATOR
+};
+
 // Computes an expensive function (count number of primes below maximum_number)
 // This serves as a scalable dummy-workload for the various nodes.
-static inline int64_t number_cruncher(const uint64_t maximum_number)
+static inline int64_t number_cruncher(TaskType task_type, const uint64_t maximum_number)
 {
   // Test 2: T ms - jitter (jitter: uniform real distribution 0-80)
   // std::random_device rd;
@@ -61,7 +70,27 @@ static inline int64_t number_cruncher(const uint64_t maximum_number)
   // double jitter = dis(gen);
   // usleep(150000 - jitter*1000); // 150 ms - jitter
 
-  usleep(80000); // 20ms
+  switch (task_type) {
+    case TaskType::TIMER:
+      usleep(80000); // 80ms
+      break;
+    case TaskType::TRANSFORMER:
+      usleep(150000); // 150ms
+      break;
+    case TaskType::FILTER:
+      usleep(80000); // 80ms
+      break;
+    case TaskType::DETECTOR:
+      usleep(80000); // 80ms
+      break;
+    case TaskType::ESTIMATOR:
+      usleep(80000); // 80ms
+      break;
+    default:
+      RCLCPP_ERROR(this->get_logger(), "----- Unknown task type. -----");
+      break;
+  }
+
   return 0;
 
   int64_t number_of_primes = 0;
