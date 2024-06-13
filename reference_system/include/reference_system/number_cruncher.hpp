@@ -72,7 +72,6 @@ static inline int64_t number_cruncher(const uint64_t maximum_number)
       usleep(80000); // 80ms
       return 0;
     default:
-      std::cout << "----- Unknown task type. -----" << std::endl;
       break;
   }
 
