@@ -39,12 +39,12 @@ struct Default
   // to figure out what values to place here corresponding to the run_time
   // you would like to run each node for
   // processing
-  static constexpr uint64_t POINTS_TRANSFORMER_FRONT = 2048;
+  static constexpr uint64_t POINTS_TRANSFORMER_FRONT = 1; //
   static constexpr uint64_t POINTS_TRANSFORMER_REAR = 2048;
   static constexpr uint64_t VOXEL_GRID_DOWNSAMPLER = 2048;
   static constexpr uint64_t POINT_CLOUD_MAP_LOADER = 2048;
-  static constexpr uint64_t RAY_GROUND_FILTER = 2048;
-  static constexpr uint64_t EUCLIDEAN_CLUSTER_DETECTOR = 2048;
+  static constexpr uint64_t RAY_GROUND_FILTER = 2; // 
+  static constexpr uint64_t EUCLIDEAN_CLUSTER_DETECTOR = 3; //
   static constexpr uint64_t EUCLIDEAN_INTERSECTION = 2048;
   static constexpr uint64_t OBJECT_COLLISION_ESTIMATOR = 2048;
   static constexpr uint64_t MPC_CONTROLLER = 2048;
