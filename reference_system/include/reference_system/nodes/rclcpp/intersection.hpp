@@ -73,13 +73,13 @@ private:
   {
     uint64_t timestamp = now_as_int();
     auto number_cruncher_result = 9;
-      // number_cruncher(connections_[id].number_crunch_limit);
+    number_cruncher(connections_[id].number_crunch_limit);
 
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_real_distribution<> dis(0, 10);
-    double jitter = dis(gen);
-    usleep(20000 - jitter*1000); // 20 ms - jitter
+    // std::random_device rd;
+    // std::mt19937 gen(rd());
+    // std::uniform_real_distribution<> dis(0, 10);
+    // double jitter = dis(gen);
+    // usleep(20000 - jitter*1000); // 20 ms - jitter
 
     auto output_message = connections_[id].publisher->borrow_loaned_message();
     output_message.get().size = 0;

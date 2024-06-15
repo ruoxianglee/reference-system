@@ -725,12 +725,12 @@ auto create_autoware_simplied_nodes()
         .topic_name = "FrontLidarDriver",
         .cycle_time = TimingConfig::FRONT_LIDAR_DRIVER}));
 
-  nodes.emplace_back(
-    std::make_shared<typename SystemType::Sensor>(
-      nodes::SensorSettings{
-    .node_name = "EuclideanClusterSettings",
-    .topic_name = "EuclideanClusterSettings",
-    .cycle_time = TimingConfig::EUCLIDEAN_CLUSTER_SETTINGS}));
+  // nodes.emplace_back(
+  //   std::make_shared<typename SystemType::Sensor>(
+  //     nodes::SensorSettings{
+  //   .node_name = "EuclideanClusterSettings",
+  //   .topic_name = "EuclideanClusterSettings",
+  //   .cycle_time = TimingConfig::EUCLIDEAN_CLUSTER_SETTINGS}));
 
   // transform nodes
   nodes.emplace_back(
@@ -749,28 +749,44 @@ auto create_autoware_simplied_nodes()
     .output_topic = "RayGroundFilter",
     .number_crunch_limit = TimingConfig::RAY_GROUND_FILTER}));
 
-  // intersection node
   nodes.emplace_back(
-    std::make_shared<typename SystemType::Intersection>(
-      nodes::IntersectionSettings{
+    std::make_shared<typename SystemType::Transform>(
+      nodes::TransformSettings{
     .node_name = "EuclideanClusterDetector",
-    .connections = {
-      {.input_topic = "RayGroundFilter",
-        .output_topic = "EuclideanClusterDetector",
-        .number_crunch_limit = TimingConfig::EUCLIDEAN_CLUSTER_DETECTOR},
-      {.input_topic = "EuclideanClusterSettings",
-        .output_topic = "EuclideanIntersection",
-        .number_crunch_limit = TimingConfig::EUCLIDEAN_INTERSECTION}}}));
+    .input_topic = "RayGroundFilter",
+    .output_topic = "EuclideanClusterDetector",
+    .number_crunch_limit = TimingConfig::EUCLIDEAN_CLUSTER_DETECTOR}));
 
   nodes.emplace_back(
-    std::make_shared<typename SystemType::Command>(
-      nodes::CommandSettings{.node_name = "ObjectCollisionEstimator",
-        .input_topic = "EuclideanClusterDetector"}));
+    std::make_shared<typename SystemType::Transform>(
+      nodes::TransformSettings{
+    .node_name = "ObjectCollisionEstimator",
+    .input_topic = "EuclideanClusterDetector",
+    .output_topic = "ObjectCollisionEstimator",
+    .number_crunch_limit = TimingConfig::OBJECT_COLLISION_ESTIMATOR}));
 
-  nodes.emplace_back(
-    std::make_shared<typename SystemType::Command>(
-      nodes::CommandSettings{.node_name = "IntersectionOutput",
-        .input_topic = "EuclideanIntersection"}));
+  // intersection node
+  // nodes.emplace_back(
+  //   std::make_shared<typename SystemType::Intersection>(
+  //     nodes::IntersectionSettings{
+  //   .node_name = "EuclideanClusterDetector",
+  //   .connections = {
+  //     {.input_topic = "RayGroundFilter",
+  //       .output_topic = "EuclideanClusterDetector",
+  //       .number_crunch_limit = TimingConfig::EUCLIDEAN_CLUSTER_DETECTOR},
+  //     {.input_topic = "EuclideanClusterSettings",
+  //       .output_topic = "EuclideanIntersection",
+  //       .number_crunch_limit = TimingConfig::EUCLIDEAN_INTERSECTION}}}));
+
+  // nodes.emplace_back(
+  //   std::make_shared<typename SystemType::Command>(
+  //     nodes::CommandSettings{.node_name = "ObjectCollisionEstimator",
+  //       .input_topic = "EuclideanClusterDetector"}));
+
+  // nodes.emplace_back(
+  //   std::make_shared<typename SystemType::Command>(
+  //     nodes::CommandSettings{.node_name = "IntersectionOutput",
+  //       .input_topic = "EuclideanIntersection"}));
 #pragma GCC diagnostic pop
 
   return nodes;
