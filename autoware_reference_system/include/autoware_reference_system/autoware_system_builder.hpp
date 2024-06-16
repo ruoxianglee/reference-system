@@ -734,7 +734,7 @@ auto create_autoware_simplied_nodes()
 
   // transform nodes
   nodes.emplace_back(
-    std::make_shared<typename SystemType::Transform>(
+    std::make_shared<typename SystemType::NewTransform>(
       nodes::NewTransformSettings{
     .node_name = "PointsTransformerFront",
     .input_topic = "FrontLidarDriver",
@@ -743,7 +743,7 @@ auto create_autoware_simplied_nodes()
     .dynamic_workload = false}));
 
   nodes.emplace_back(
-    std::make_shared<typename SystemType::Transform>(
+    std::make_shared<typename SystemType::NewTransform>(
       nodes::NewTransformSettings{
     .node_name = "RayGroundFilter",
     .input_topic = "PointsTransformerFront",
@@ -752,7 +752,7 @@ auto create_autoware_simplied_nodes()
     .dynamic_workload = false}));
 
   nodes.emplace_back(
-    std::make_shared<typename SystemType::Transform>(
+    std::make_shared<typename SystemType::NewTransform>(
       nodes::NewTransformSettings{
     .node_name = "EuclideanClusterDetector",
     .input_topic = "RayGroundFilter",
@@ -761,7 +761,7 @@ auto create_autoware_simplied_nodes()
     .dynamic_workload = false}));
 
   nodes.emplace_back(
-    std::make_shared<typename SystemType::Transform>(
+    std::make_shared<typename SystemType::NewTransform>(
       nodes::NewTransformSettings{
     .node_name = "ObjectCollisionEstimator",
     .input_topic = "EuclideanClusterDetector",

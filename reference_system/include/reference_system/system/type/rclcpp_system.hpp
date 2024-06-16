@@ -16,6 +16,7 @@
 #include "reference_system/nodes/rclcpp/command.hpp"
 #include "reference_system/nodes/rclcpp/fusion.hpp"
 #include "reference_system/nodes/rclcpp/transform.hpp"
+#include "reference_system/nodes/rclcpp/new_transform.hpp"
 #include "reference_system/nodes/rclcpp/cyclic.hpp"
 #include "reference_system/nodes/rclcpp/sensor.hpp"
 #include "reference_system/nodes/rclcpp/intersection.hpp"
@@ -30,6 +31,7 @@ struct RclcppSystem
   using Intersection = nodes::rclcpp_system::Intersection;
   using Sensor = nodes::rclcpp_system::Sensor;
   using Transform = nodes::rclcpp_system::Transform;
+  using NewTransform = nodes::rclcpp_system::NewTransform;
 };
 
 #endif  // REFERENCE_SYSTEM__SYSTEM__TYPE__RCLCPP_SYSTEM_HPP_

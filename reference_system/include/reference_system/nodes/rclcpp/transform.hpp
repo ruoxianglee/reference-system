@@ -31,11 +31,9 @@ namespace rclcpp_system
 class Transform : public rclcpp::Node
 {
 public:
-  explicit Transform(const NewTransformSettings & settings)
+  explicit Transform(const TransformSettings & settings)
   : Node(settings.node_name),
-    number_crunch_limit_(settings.number_crunch_limit),
-    dynamic_workload_(settings.dynamic_workload),
-    start_time_(this->now())
+    number_crunch_limit_(settings.number_crunch_limit)
   {
     subscription_ = this->create_subscription<message_t>(
       settings.input_topic, 1,
@@ -44,38 +42,10 @@ public:
   }
 
 private:
-  void dynamic_workload()
-  {
-    // Calculate elapsed time
-    auto elapsed_time = this->now() - start_time_;
-    int64_t elapsed_seconds = elapsed_time.seconds();
-
-    // Determine sleep time based on elapsed time
-    uint64_t sleep_time_ms = 80;
-    int super_period = 60;
-    int scaled_elapsed_seconds = elapsed_seconds/super_period;
-    if ((scaled_elapsed_seconds >=0) && (scaled_elapsed_seconds <=30)) {
-      sleep_time_ms = 80;
-    } 
-    else if ((scaled_elapsed_seconds >30) && (scaled_elapsed_seconds <=60)) {
-      sleep_time_ms = 120;
-    }
-
-    // Sleep for the determined amount of time
-    std::this_thread::sleep_for(std::chrono::milliseconds(sleep_time_ms));
-  }
-
   void input_callback(const message_t::SharedPtr input_message)
   {
     uint64_t timestamp = now_as_int();
     auto number_cruncher_result = number_cruncher(number_crunch_limit_);
-
-    if(dynamic_workload_){
-      // Dynamic execution time scheme
-      dynamic_workload();
-    } else {
-      std::this_thread::sleep_for(std::chrono::milliseconds(80));
-    }
 
     auto output_message = publisher_->borrow_loaned_message();
     output_message.get().size = 0;
@@ -99,8 +69,6 @@ private:
   uint64_t number_crunch_limit_;
   uint32_t sequence_number_ = 0;
   uint32_t input_sequence_number_ = 0;
-  bool dynamic_workload_;
-  rclcpp::Time start_time_;
 };
 }  // namespace rclcpp_system
 }  // namespace nodes
