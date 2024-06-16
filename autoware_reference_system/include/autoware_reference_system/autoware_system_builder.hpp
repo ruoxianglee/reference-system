@@ -735,35 +735,39 @@ auto create_autoware_simplied_nodes()
   // transform nodes
   nodes.emplace_back(
     std::make_shared<typename SystemType::Transform>(
-      nodes::TransformSettings{
+      nodes::NewTransformSettings{
     .node_name = "PointsTransformerFront",
     .input_topic = "FrontLidarDriver",
     .output_topic = "PointsTransformerFront",
-    .number_crunch_limit = TimingConfig::POINTS_TRANSFORMER_FRONT}));
+    .number_crunch_limit = TimingConfig::POINTS_TRANSFORMER_FRONT,
+    .dynamic_workload = false}));
 
   nodes.emplace_back(
     std::make_shared<typename SystemType::Transform>(
-      nodes::TransformSettings{
+      nodes::NewTransformSettings{
     .node_name = "RayGroundFilter",
     .input_topic = "PointsTransformerFront",
     .output_topic = "RayGroundFilter",
-    .number_crunch_limit = TimingConfig::RAY_GROUND_FILTER}));
+    .number_crunch_limit = TimingConfig::RAY_GROUND_FILTER,
+    .dynamic_workload = false}));
 
   nodes.emplace_back(
     std::make_shared<typename SystemType::Transform>(
-      nodes::TransformSettings{
+      nodes::NewTransformSettings{
     .node_name = "EuclideanClusterDetector",
     .input_topic = "RayGroundFilter",
     .output_topic = "EuclideanClusterDetector",
-    .number_crunch_limit = TimingConfig::EUCLIDEAN_CLUSTER_DETECTOR}));
+    .number_crunch_limit = TimingConfig::EUCLIDEAN_CLUSTER_DETECTOR,
+    .dynamic_workload = false}));
 
   nodes.emplace_back(
     std::make_shared<typename SystemType::Transform>(
-      nodes::TransformSettings{
+      nodes::NewTransformSettings{
     .node_name = "ObjectCollisionEstimator",
     .input_topic = "EuclideanClusterDetector",
     .output_topic = "ObjectCollisionEstimator",
-    .number_crunch_limit = TimingConfig::OBJECT_COLLISION_ESTIMATOR}));
+    .number_crunch_limit = TimingConfig::OBJECT_COLLISION_ESTIMATOR,
+    .dynamic_workload = false}));
 
   // intersection node
   // nodes.emplace_back(

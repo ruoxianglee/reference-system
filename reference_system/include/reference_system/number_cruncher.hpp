@@ -61,19 +61,19 @@ static inline int64_t number_cruncher(const uint64_t maximum_number)
   // double jitter = dis(gen);
   // usleep(150000 - jitter*1000); // 150 ms - jitter
 
-  switch (maximum_number) {
-    case 1:
-      usleep(80000); // 80ms
-      return 0;
-    case 2:
-      usleep(80000); // 150ms
-      return 0;
-    case 3:
-      usleep(80000); // 80ms
-      return 0;
-    default:
-      break;
-  }
+  // switch (maximum_number) {
+  //   case 1:
+  //     usleep(80000); // 80ms
+  //     return 0;
+  //   case 2:
+  //     usleep(80000); // 150ms
+  //     return 0;
+  //   case 3:
+  //     usleep(80000); // 80ms
+  //     return 0;
+  //   default:
+  //     break;
+  // }
 
   int64_t number_of_primes = 0;
   uint64_t initial_value = 2;

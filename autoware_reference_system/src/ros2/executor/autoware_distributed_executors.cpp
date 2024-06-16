@@ -47,13 +47,13 @@ void set_rt_properties(int prio, int cpu)
   // sched_setscheduler(0, SCHED_OTHER, &sched_param);
     
   // Method 2: set nice value
-  pid_t tid = syscall(SYS_gettid);
-  int ret = setpriority(PRIO_PROCESS, tid, prio);
-  if (ret == 0) {
-      std::cout << "Nice value of thread " << tid << " set to " << prio << std::endl;
-  } else {
-      perror("setpriority");
-  }
+  // pid_t tid = syscall(SYS_gettid);
+  // int ret = setpriority(PRIO_PROCESS, tid, prio);
+  // if (ret == 0) {
+  //     std::cout << "Nice value of thread " << tid << " set to " << prio << std::endl;
+  // } else {
+  //     perror("setpriority");
+  // }
 
   // Bind thread to specific CPU core
   cpu_set_t cpuset;
@@ -133,15 +133,15 @@ int main(int argc, char ** argv)
   int core_ids[5] = {3, 4, 5, 6, 7};
 
   // Launch multiple dummy tasks
-  int num_of_dummy_tasks = 10;  // Adjust for more contention
-  std::vector<std::thread> dummy_threads;
-  for (int i = 0; i < num_of_dummy_tasks; ++i) {
-      dummy_threads.emplace_back([core_ids, i]() {
-          set_rt_properties(dummy_task_prio, core_ids[2]);
-          cpu_dummy_task();
-          std::cout << "Dummy task " << i << " is running on CPU: " << sched_getcpu() << std::endl;
-      });
-  }
+  // int num_of_dummy_tasks = 10;  // Adjust for more contention
+  // std::vector<std::thread> dummy_threads;
+  // for (int i = 0; i < num_of_dummy_tasks; ++i) {
+  //     dummy_threads.emplace_back([core_ids, i]() {
+  //         set_rt_properties(dummy_task_prio, core_ids[2]);
+  //         cpu_dummy_task();
+  //         std::cout << "Dummy task " << i << " is running on CPU: " << sched_getcpu() << std::endl;
+  //     });
+  // }
 
   std::thread timer_thread {[&]() {
       set_rt_properties(executor_thread_prio, core_ids[0]);
@@ -175,9 +175,9 @@ int main(int argc, char ** argv)
   detector_thread.join();
   estimator_thread.join();
 
-  for (auto& thread : dummy_threads) {
-      thread.join();
-  }
+  // for (auto& thread : dummy_threads) {
+  //     thread.join();
+  // }
 
   rclcpp::shutdown();
 }
