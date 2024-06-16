@@ -34,7 +34,7 @@ public:
   explicit Transform(const NewTransformSettings & settings)
   : Node(settings.node_name),
     number_crunch_limit_(settings.number_crunch_limit),
-    dynamic_workload_(settings.dynamic_workload)
+    dynamic_workload_(settings.dynamic_workload),
     start_time_(this->now())
   {
     subscription_ = this->create_subscription<message_t>(
@@ -68,7 +68,7 @@ private:
   void input_callback(const message_t::SharedPtr input_message)
   {
     uint64_t timestamp = now_as_int();
-    // auto number_cruncher_result = number_cruncher(number_crunch_limit_);
+    auto number_cruncher_result = number_cruncher(number_crunch_limit_);
 
     if(dynamic_workload_){
       // Dynamic execution time scheme
