@@ -41,6 +41,11 @@ public:
       settings.input_topic, 1,
       [this](const message_t::SharedPtr msg) {input_callback(msg);});
     publisher_ = this->create_publisher<message_t>(settings.output_topic, 1);
+
+    if(dynamic_workload_)
+    {
+      std::cout << "Transform node has dynamic workload." << std::endl;
+    }
   }
 
 private:
@@ -56,9 +61,11 @@ private:
     int scaled_elapsed_seconds = elapsed_seconds/super_period;
     if ((scaled_elapsed_seconds >=0) && (scaled_elapsed_seconds <=30)) {
       sleep_time_ms = 80;
+      std::cout << "Transform workload is set to 80 ms." << std::endl;
     } 
     else if ((scaled_elapsed_seconds >30) && (scaled_elapsed_seconds <=60)) {
       sleep_time_ms = 120;
+      std::cout << "Transform workload is set to 120 ms." << std::endl;
     }
 
     // Sleep for the determined amount of time
