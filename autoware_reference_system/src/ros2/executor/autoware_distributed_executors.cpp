@@ -47,13 +47,13 @@ void set_rt_properties(int prio, int cpu)
   // sched_setscheduler(0, SCHED_OTHER, &sched_param);
     
   // Method 2: set nice value
-  // pid_t tid = syscall(SYS_gettid);
-  // int ret = setpriority(PRIO_PROCESS, tid, prio);
-  // if (ret == 0) {
-  //     std::cout << "Nice value of thread " << tid << " set to " << prio << std::endl;
-  // } else {
-  //     perror("setpriority");
-  // }
+  pid_t tid = syscall(SYS_gettid);
+  int ret = setpriority(PRIO_PROCESS, tid, prio);
+  if (ret == 0) {
+      std::cout << "Nice value of thread " << tid << " set to " << prio << std::endl;
+  } else {
+      perror("setpriority");
+  }
 
   // Bind thread to specific CPU core
   cpu_set_t cpuset;
