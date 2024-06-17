@@ -130,7 +130,7 @@ int main(int argc, char ** argv)
     estimator_exe.add_node(nodes.at(node));
   }
 
-  int core_ids[5] = {3, 4, 5, 6, 7};
+  int core_ids[5] = {3, 3, 3, 3, 3};
 
   // Launch multiple dummy tasks
   // int num_of_dummy_tasks = 10;  // Adjust for more contention
