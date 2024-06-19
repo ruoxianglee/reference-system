@@ -98,7 +98,7 @@ private:
     output_message.get().data[0] = number_cruncher_result;
     publisher_->publish(std::move(output_message));
 
-    std::string node_name = this->get_name()
+    std::string node_name = this->get_name();
     if (node_name == "/ObjectCollisionEstimator")
       print_sample_path(this->get_name(), missed_samples, input_message);
   }
