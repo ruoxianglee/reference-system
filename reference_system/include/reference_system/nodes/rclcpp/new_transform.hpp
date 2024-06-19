@@ -67,9 +67,10 @@ private:
       sleep_time_ms = 120;
     }
 
-    pre_sleep_time_ms_ = sleep_time_ms;
     if (sleep_time_ms != pre_sleep_time_ms_)
       std::cout << "Transform workload is set to " << sleep_time_ms << " ms." << std::endl;
+
+    pre_sleep_time_ms_ = sleep_time_ms;
 
     // Sleep for the determined amount of time
     std::this_thread::sleep_for(std::chrono::milliseconds(sleep_time_ms));
@@ -114,7 +115,7 @@ private:
   uint32_t input_sequence_number_ = 0;
   bool dynamic_workload_;
   rclcpp::Time start_time_;
-  uint64_t pre_sleep_time_ms_;
+  uint64_t pre_sleep_time_ms_ = 0;
 };
 }  // namespace rclcpp_system
 }  // namespace nodes
