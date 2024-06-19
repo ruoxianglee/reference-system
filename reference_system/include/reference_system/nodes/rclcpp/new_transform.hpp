@@ -59,8 +59,7 @@ private:
     uint64_t sleep_time_ms = 80;
     int super_period = 60;
     int scaled_elapsed_seconds = elapsed_seconds % super_period;
-
-    uint64_t pre_sleep_time_ms = sleep_time_ms;
+    
     if ((scaled_elapsed_seconds >=0) && (scaled_elapsed_seconds <=30)) {
       sleep_time_ms = 80;
     } 
@@ -68,8 +67,9 @@ private:
       sleep_time_ms = 120;
     }
 
-    if (sleep_time_ms != pre_sleep_time_ms)
-      std::cout << "Transform workload is set to %d ms." << sleep_time_ms << std::endl;
+    pre_sleep_time_ms_ = sleep_time_ms;
+    if (sleep_time_ms != pre_sleep_time_ms_)
+      std::cout << "Transform workload is set to " << sleep_time_ms << " ms." << std::endl;
 
     // Sleep for the determined amount of time
     std::this_thread::sleep_for(std::chrono::milliseconds(sleep_time_ms));
@@ -114,6 +114,7 @@ private:
   uint32_t input_sequence_number_ = 0;
   bool dynamic_workload_;
   rclcpp::Time start_time_;
+  uint64_t pre_sleep_time_ms_;
 };
 }  // namespace rclcpp_system
 }  // namespace nodes
