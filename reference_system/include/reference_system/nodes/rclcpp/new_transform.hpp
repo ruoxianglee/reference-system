@@ -104,7 +104,11 @@ private:
 
     std::string node_name = this->get_name();
     if (node_name == "/ObjectCollisionEstimator")
+    {
       print_sample_path(this->get_name(), missed_samples, input_message);
+    }
+    else
+      print("Not sink node...");
   }
 
 private:
