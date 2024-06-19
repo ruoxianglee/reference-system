@@ -59,14 +59,17 @@ private:
     uint64_t sleep_time_ms = 80;
     int super_period = 60;
     int scaled_elapsed_seconds = elapsed_seconds % super_period;
+
+    uint64_t pre_sleep_time_ms = sleep_time_ms;
     if ((scaled_elapsed_seconds >=0) && (scaled_elapsed_seconds <=30)) {
       sleep_time_ms = 80;
-      std::cout << "Transform workload is set to 80 ms." << std::endl;
     } 
     else if ((scaled_elapsed_seconds >30) && (scaled_elapsed_seconds <=60)) {
       sleep_time_ms = 120;
-      std::cout << "Transform workload is set to 120 ms." << std::endl;
     }
+
+    if (sleep_time_ms != pre_sleep_time_ms)
+      std::cout << "Transform workload is set to %d ms." << sleep_time_ms << std::endl;
 
     // Sleep for the determined amount of time
     std::this_thread::sleep_for(std::chrono::milliseconds(sleep_time_ms));
