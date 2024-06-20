@@ -104,7 +104,7 @@ private:
 
     std::string node_name = this->get_name();
     std::cout << node_name << std::endl;
-    if (node_name == "/ObjectCollisionEstimator")
+    if (node_name == "ObjectCollisionEstimator")
     {
       print_sample_path(this->get_name(), missed_samples, input_message);
     }
