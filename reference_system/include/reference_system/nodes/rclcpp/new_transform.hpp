@@ -56,7 +56,7 @@ private:
     int64_t elapsed_seconds = elapsed_time.seconds();
 
     // Determine sleep time based on elapsed time
-    uint64_t sleep_time_ms = 80;
+    uint64_t sleep_time_ms = pre_sleep_time_ms_;
     int super_period = 60;
     int scaled_elapsed_seconds = elapsed_seconds % super_period;
     
@@ -67,10 +67,10 @@ private:
       sleep_time_ms = 120;
     }
 
-    // if (sleep_time_ms != pre_sleep_time_ms_)
-    //   std::cout << "Transform workload is set to " << sleep_time_ms << " ms." << std::endl;
+    if (sleep_time_ms != pre_sleep_time_ms_)
+      std::cout << "Transform workload is set to " << sleep_time_ms << " ms." << std::endl;
 
-    // pre_sleep_time_ms_ = sleep_time_ms;
+    pre_sleep_time_ms_ = sleep_time_ms;
 
     // Sleep for the determined amount of time
     std::this_thread::sleep_for(std::chrono::milliseconds(sleep_time_ms));
@@ -108,7 +108,7 @@ private:
       print_sample_path(this->get_name(), missed_samples, input_message);
     }
     else
-      print("Not sink node...");
+      std::cout << "Not sink node ..." << std::endl;
   }
 
 private:
@@ -119,7 +119,7 @@ private:
   uint32_t input_sequence_number_ = 0;
   bool dynamic_workload_;
   rclcpp::Time start_time_;
-  // uint64_t pre_sleep_time_ms_ = 0;
+  uint64_t pre_sleep_time_ms_ = 80;
 };
 }  // namespace rclcpp_system
 }  // namespace nodes
