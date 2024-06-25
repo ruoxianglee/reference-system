@@ -740,7 +740,7 @@ auto create_autoware_simplied_nodes()
     .input_topic = "FrontLidarDriver",
     .output_topic = "PointsTransformerFront",
     .number_crunch_limit = TimingConfig::POINTS_TRANSFORMER_FRONT,
-    .dynamic_workload = false}));
+    .dynamic_workload = true}));
 
   nodes.emplace_back(
     std::make_shared<typename SystemType::NewTransform>(
@@ -749,7 +749,7 @@ auto create_autoware_simplied_nodes()
     .input_topic = "PointsTransformerFront",
     .output_topic = "RayGroundFilter",
     .number_crunch_limit = TimingConfig::RAY_GROUND_FILTER,
-    .dynamic_workload = true}));
+    .dynamic_workload = false}));
 
   nodes.emplace_back(
     std::make_shared<typename SystemType::NewTransform>(

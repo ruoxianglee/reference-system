@@ -26,11 +26,10 @@
 #include <sys/resource.h>
 #include <unistd.h>
 #include <sys/syscall.h>
+#include <thread>
 
 #include "rclcpp/rclcpp.hpp"
-
 #include "reference_system/system/type/rclcpp_system.hpp"
-
 #include "autoware_reference_system/autoware_system_builder.hpp"
 #include "autoware_reference_system/system/timing/benchmark.hpp"
 #include "autoware_reference_system/system/timing/default.hpp"
@@ -61,24 +60,6 @@ void set_rt_properties(int prio, int cpu)
   CPU_SET(cpu, &cpuset);
 
   sched_setaffinity(0, sizeof(cpuset), &cpuset);
-}
-
-void cpu_dummy_task() {
-    // while (true) {
-    //     volatile unsigned long long sum = 0;
-    //     for (unsigned long long i = 0; i < 1000000000; ++i) {
-    //         sum += i;
-    //     }
-    // }
-    
-    // std::random_device rd;
-    // std::mt19937 gen(rd());
-    // std::uniform_real_distribution<> dis(0, 50);
-    // double jitter = dis(gen);
-    // usleep(150000 - jitter*1000); // 150 ms - jitter
-
-    // usleep(150000);
-    sleep_randomly(80,5);
 }
 
 int main(int argc, char ** argv)
@@ -120,7 +101,6 @@ int main(int argc, char ** argv)
     tranformer_exe.add_node(nodes.at(node));
   }
   for (const auto & node : filter_node) {
-    std::cout << node << "\n";
     filter_exe.add_node(nodes.at(node));
   }
   for (const auto & node : detector_node) {
@@ -130,54 +110,66 @@ int main(int argc, char ** argv)
     estimator_exe.add_node(nodes.at(node));
   }
 
-  int core_ids[5] = {3, 4, 5, 6, 7};
+  int core_ids[5] = {3, 4, 5};
 
-  // Launch multiple dummy tasks
-  // int num_of_dummy_tasks = 10;  // Adjust for more contention
-  // std::vector<std::thread> dummy_threads;
-  // for (int i = 0; i < num_of_dummy_tasks; ++i) {
-  //     dummy_threads.emplace_back([core_ids, i]() {
-  //         set_rt_properties(dummy_task_prio, core_ids[2]);
-  //         cpu_dummy_task();
-  //         std::cout << "Dummy task " << i << " is running on CPU: " << sched_getcpu() << std::endl;
-  //     });
-  // }
+  std::vector<std::thread> thread_pool;
+  std::vector<std::shared_ptr<rclcpp::executors::SingleThreadedExecutor>> executors = {
+      std::make_shared<rclcpp::executors::SingleThreadedExecutor>(timer_exe),
+      std::make_shared<rclcpp::executors::SingleThreadedExecutor>(tranformer_exe),
+      std::make_shared<rclcpp::executors::SingleThreadedExecutor>(filter_exe),
+      std::make_shared<rclcpp::executors::SingleThreadedExecutor>(detector_exe),
+      std::make_shared<rclcpp::executors::SingleThreadedExecutor>(estimator_exe)};
 
-  std::thread timer_thread {[&]() {
-      set_rt_properties(executor_thread_prio, core_ids[0]);
-      std::cout << "Thread timer is running on CPU: " << sched_getcpu() << std::endl;
-      timer_exe.spin();
-    }};
-  std::thread tranformer_thread {[&]() {
-      set_rt_properties(executor_thread_prio, core_ids[1]);
-      std::cout << "Thread tranformer is running on CPU: " << sched_getcpu() << std::endl;
-      tranformer_exe.spin();
-    }};
-  std::thread filter_thread {[&]() {
-      set_rt_properties(executor_thread_prio, core_ids[2]);
-      std::cout << "Thread filter is running on CPU: " << sched_getcpu() << std::endl;
-      filter_exe.spin();
-    }};
-  std::thread detector_thread {[&]() {
-      set_rt_properties(executor_thread_prio, core_ids[3]);
-      std::cout << "Thread detector is running on CPU: " << sched_getcpu() << std::endl;
-      detector_exe.spin();
-    }};
-  std::thread estimator_thread {[&]() {
-      set_rt_properties(executor_thread_prio, core_ids[4]);
-      std::cout << "Thread estimator is running on CPU: " << sched_getcpu() << std::endl;
-      estimator_exe.spin();
-    }};
+  for (int i = 0; i < 3; ++i)
+  {
+    thread_pool.emplace_back([&, i]()
+                             {
+      set_rt_properties(executor_thread_prio, core_ids[i]);
+      std::cout << "Thread " << i << " is running on CPU: " << sched_getcpu() << std::endl;
+      while (true) {
+        for (size_t j = i; j < executors.size(); j += 3) {
+          executors[j]->spin_some(0);
+        }
+        // std::this_thread::sleep_for(std::chrono::milliseconds(100));
+      } });
+  }
 
-  timer_thread.join();
-  tranformer_thread.join();
-  filter_thread.join();
-  detector_thread.join();
-  estimator_thread.join();
+  for (auto &thread : thread_pool)
+  {
+    thread.join();
+  }
 
-  // for (auto& thread : dummy_threads) {
-  //     thread.join();
-  // }
+  // std::thread timer_thread {[&]() {
+  //     set_rt_properties(executor_thread_prio, core_ids[0]);
+  //     std::cout << "Thread timer is running on CPU: " << sched_getcpu() << std::endl;
+  //     timer_exe.spin();
+  //   }};
+  // std::thread tranformer_thread {[&]() {
+  //     set_rt_properties(executor_thread_prio, core_ids[1]);
+  //     std::cout << "Thread tranformer is running on CPU: " << sched_getcpu() << std::endl;
+  //     tranformer_exe.spin();
+  //   }};
+  // std::thread filter_thread {[&]() {
+  //     set_rt_properties(executor_thread_prio, core_ids[2]);
+  //     std::cout << "Thread filter is running on CPU: " << sched_getcpu() << std::endl;
+  //     filter_exe.spin();
+  //   }};
+  // std::thread detector_thread {[&]() {
+  //     set_rt_properties(executor_thread_prio, core_ids[3]);
+  //     std::cout << "Thread detector is running on CPU: " << sched_getcpu() << std::endl;
+  //     detector_exe.spin();
+  //   }};
+  // std::thread estimator_thread {[&]() {
+  //     set_rt_properties(executor_thread_prio, core_ids[4]);
+  //     std::cout << "Thread estimator is running on CPU: " << sched_getcpu() << std::endl;
+  //     estimator_exe.spin();
+  //   }};
+
+  // timer_thread.join();
+  // tranformer_thread.join();
+  // filter_thread.join();
+  // detector_thread.join();
+  // estimator_thread.join();
 
   rclcpp::shutdown();
 }
