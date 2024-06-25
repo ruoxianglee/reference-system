@@ -88,13 +88,6 @@ int main(int argc, char ** argv)
     detector_exe,
     estimator_exe;
 
-  std::vector<rclcpp::executors::SingleThreadedExecutor> executors = {
-    timer_exe,
-    tranformer_exe,
-    filter_exe,
-    detector_exe,
-    estimator_exe};
-    
   std::set<std::string> timer_node = {"FrontLidarDriver"};
   std::set<std::string> tranformer_node = {"PointsTransformerFront"};
   std::set<std::string> filter_node = {"RayGroundFilter"};
@@ -116,6 +109,12 @@ int main(int argc, char ** argv)
   for (const auto & node : estimator_node) {
     estimator_exe.add_node(nodes.at(node));
   }
+
+  std::vector<rclcpp::executors::SingleThreadedExecutor> executors {timer_exe,
+    tranformer_exe,
+    filter_exe,
+    detector_exe,
+    estimator_exe}; 
 
   int core_ids[5] = {3, 4, 5};
 
