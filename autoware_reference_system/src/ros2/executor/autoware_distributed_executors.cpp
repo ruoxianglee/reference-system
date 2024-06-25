@@ -110,11 +110,7 @@ int main(int argc, char ** argv)
     estimator_exe.add_node(nodes.at(node));
   }
 
-  std::vector<rclcpp::executors::SingleThreadedExecutor> executors {timer_exe,
-    tranformer_exe,
-    filter_exe,
-    detector_exe,
-    estimator_exe}; 
+  std::vector<rclcpp::executors::SingleThreadedExecutor> executors {timer_exe, tranformer_exe, filter_exe, detector_exe, estimator_exe}; 
 
   int core_ids[5] = {3, 4, 5};
 
@@ -134,7 +130,7 @@ int main(int argc, char ** argv)
       std::cout << "Thread " << i << " is running on CPU: " << sched_getcpu() << std::endl;
       while (true) {
         for (size_t j = i; j < executors.size(); j += 3) {
-          executors[j]->spin_some(std::chrono::milliseconds(0));
+          executors[j].spin_some(std::chrono::milliseconds(0));
         }
         // std::this_thread::sleep_for(std::chrono::milliseconds(100));
       } });
