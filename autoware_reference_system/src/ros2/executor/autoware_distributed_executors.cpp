@@ -76,8 +76,8 @@ void cpu_dummy_task() {
     // double jitter = dis(gen);
     // usleep(150000 - jitter*1000); // 150 ms - jitter
 
-    usleep(120000);
-    // sleep_randomly(80,5);
+    // usleep(120000);
+    sleep_randomly(120,5);
 }
 
 int main(int argc, char ** argv)
