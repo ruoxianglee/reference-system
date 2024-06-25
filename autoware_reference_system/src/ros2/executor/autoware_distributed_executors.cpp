@@ -81,12 +81,17 @@ int main(int argc, char ** argv)
     std::cout << node->get_name() << "\n";
   }
 
-  rclcpp::executors::SingleThreadedExecutor
-    timer_exe,
-    tranformer_exe,
-    filter_exe,
-    detector_exe,
-    estimator_exe;
+  // rclcpp::executors::SingleThreadedExecutor
+  //   timer_exe,
+  //   tranformer_exe,
+  //   filter_exe,
+  //   detector_exe,
+  //   estimator_exe;
+  auto timer_exe = std::make_shared<rclcpp::executors::SingleThreadedExecutor>();
+  auto tranformer_exe = std::make_shared<rclcpp::executors::SingleThreadedExecutor>();
+  auto filter_exe = std::make_shared<rclcpp::executors::SingleThreadedExecutor>();
+  auto detector_exe = std::make_shared<rclcpp::executors::SingleThreadedExecutor>();
+  auto estimator_exe = std::make_shared<rclcpp::executors::SingleThreadedExecutor>();
 
   std::set<std::string> timer_node = {"FrontLidarDriver"};
   std::set<std::string> tranformer_node = {"PointsTransformerFront"};
@@ -95,32 +100,30 @@ int main(int argc, char ** argv)
   std::set<std::string> estimator_node = {"ObjectCollisionEstimator"};
 
   for (const auto & node : timer_node) {
-    timer_exe.add_node(nodes.at(node));
+    timer_exe->add_node(nodes.at(node));
   }
   for (const auto & node : tranformer_node) {
-    tranformer_exe.add_node(nodes.at(node));
+    tranformer_exe->add_node(nodes.at(node));
   }
   for (const auto & node : filter_node) {
-    filter_exe.add_node(nodes.at(node));
+    filter_exe->add_node(nodes.at(node));
   }
   for (const auto & node : detector_node) {
-    detector_exe.add_node(nodes.at(node));
+    detector_exe->add_node(nodes.at(node));
   }
   for (const auto & node : estimator_node) {
-    estimator_exe.add_node(nodes.at(node));
+    estimator_exe->add_node(nodes.at(node));
   }
-
-  std::vector<rclcpp::executors::SingleThreadedExecutor> executors {timer_exe, tranformer_exe, filter_exe, detector_exe, estimator_exe}; 
 
   int core_ids[5] = {3, 4, 5};
 
   std::vector<std::thread> thread_pool;
-  // std::vector<std::shared_ptr<rclcpp::executors::SingleThreadedExecutor>> executors = {
-  //     std::make_shared<rclcpp::executors::SingleThreadedExecutor>(timer_exe),
-  //     std::make_shared<rclcpp::executors::SingleThreadedExecutor>(tranformer_exe),
-  //     std::make_shared<rclcpp::executors::SingleThreadedExecutor>(filter_exe),
-  //     std::make_shared<rclcpp::executors::SingleThreadedExecutor>(detector_exe),
-  //     std::make_shared<rclcpp::executors::SingleThreadedExecutor>(estimator_exe)};
+  std::vector<std::shared_ptr<rclcpp::executors::SingleThreadedExecutor>> executors = {
+      timer_exe,
+      tranformer_exe,
+      filter_exe,
+      detector_exe,
+      estimator_exe};
 
   for (int i = 0; i < 3; ++i)
   {
