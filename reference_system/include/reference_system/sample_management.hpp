@@ -349,6 +349,8 @@ void print_statistic_infomation(
       std::cout << "Got sink timestamp " << hot_path_latency_in_ns << std::endl;
     }
   }
+  std::cout << "Got sink timestamp " << sink_timestamp << std::endl;
+  
   hot_path_latency_in_ns = sink_timestamp - root_timestamp;
 
   // hot path drops
