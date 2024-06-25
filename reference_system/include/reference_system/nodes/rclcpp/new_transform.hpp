@@ -64,7 +64,7 @@ private:
       sleep_time_ms = 80;
     } 
     else if ((scaled_elapsed_seconds >30) && (scaled_elapsed_seconds <=60)) {
-      sleep_time_ms = 120;
+      sleep_time_ms = 140;
     }
 
     if (sleep_time_ms != pre_sleep_time_ms_)
@@ -95,10 +95,10 @@ private:
       input_message, input_sequence_number_);
 
     std::string node_name = this->get_name();
-    if (node_name == "PointsTransformerFront")
-    {
-      std::cout << "PointsTransformerFront message ID: " << input_sequence_number_ << std::endl;
-    }
+    // if (node_name == "PointsTransformerFront")
+    // {
+    //   std::cout << "PointsTransformerFront message ID: " << input_sequence_number_ << std::endl;
+    // }
 
     set_sample(
       this->get_name(), sequence_number_++, missed_samples, timestamp,
@@ -110,7 +110,7 @@ private:
 
     if (node_name == "ObjectCollisionEstimator")
     {
-      // print_statistic_infomation(this->get_name(), missed_samples, input_message, timestamp);
+      print_statistic_infomation(this->get_name(), missed_samples, input_message, timestamp);
     }
   }
 
