@@ -64,7 +64,6 @@ private:
   void change_timer_period(std::chrono::nanoseconds new_period) {
       timer_->cancel();
       cycle_time_ = new_period;
-      std::cout << "Changing time frequency to: " << cycle_time_ << std::endl;
       timer_ = this->create_wall_timer(
           cycle_time_,
           std::bind(&Sensor::timer_callback, this)
@@ -74,6 +73,7 @@ private:
   void modified_cycle_time_callback(const std_msgs::msg::Float32::SharedPtr msg)
   {
       auto timeInMs = static_cast<int>(msg->data);
+      std::cout << "Changing time frequency to: " << timeInMs << std::endl;
       change_timer_period(std::chrono::milliseconds(timeInMs));
   }
 
