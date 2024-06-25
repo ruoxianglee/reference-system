@@ -95,10 +95,10 @@ private:
       input_message, input_sequence_number_);
 
     std::string node_name = this->get_name();
-    // if (node_name == "PointsTransformerFront")
-    // {
-    //   std::cout << "PointsTransformerFront message ID: " << input_sequence_number_ << std::endl;
-    // }
+    if (node_name == "PointsTransformerFront")
+    {
+      std::cout << "PointsTransformerFront message ID: " << input_sequence_number_ << std::endl;
+    }
 
     set_sample(
       this->get_name(), sequence_number_++, missed_samples, timestamp,
@@ -110,36 +110,7 @@ private:
 
     if (node_name == "ObjectCollisionEstimator")
     {
-      // hot path latency
-      // uint64_t hot_path_latency_in_ns = 0;
-      // uint64_t root_timestamp = 0;
-      // const auto settings = SampleManagementSettings::get();
-      // std::cout << "sample size: " << sample->size << std::endl;
-      // for (uint64_t i = 0; i < sample->size; ++i) {
-      //   uint64_t idx = sample->size - i - 1;
-      //   std::string current_node_name(
-      //     reinterpret_cast<const char *>(sample->stats[idx].node_name.data()));
-
-      //   if (settings.is_hot_path_root(current_node_name)) {
-      //     root_timestamp = std::max(root_timestamp, sample->stats[idx].timestamp);
-      //     std::cout << "Got root timestamp " << root_timestamp << std::endl;
-      //   }
-      // }
-      // hot_path_latency_in_ns = timestamp - root_timestamp;
-
-      // hot path drops
-      // uint64_t hot_path_drops = 0;
-      // for (uint64_t i = 0; i < sample->size; ++i) {
-      //   uint64_t idx = sample->size - i - 1;
-      //   std::string current_node_name(
-      //     reinterpret_cast<const char *>(sample->stats[idx].node_name.data()));
-      //   if (settings.is_hot_path_node(current_node_name) > 0) {
-      //     hot_path_drops += sample->stats[idx].dropped_samples;
-      //     std::cout << "Got message drops " << hot_path_drops << std::endl;
-      //   }
-      // }
-      // hot_path_drops += missed_samples;
-      print_statistic_infomation(this->get_name(), missed_samples, input_message, timestamp);
+      // print_statistic_infomation(this->get_name(), missed_samples, input_message, timestamp);
     }
   }
 
