@@ -131,7 +131,7 @@ int main(int argc, char ** argv)
                              {
       set_rt_properties(executor_thread_prio, core_ids[i]);
       std::cout << "Thread " << i << " is running on CPU: " << sched_getcpu() << std::endl;
-      while (rclcpp::ok()) { {
+      while (rclcpp::ok()) {
         for (size_t j = i; j < executors.size(); j += 3) {
           executors[j]->spin_some(std::chrono::milliseconds(0));
         }
