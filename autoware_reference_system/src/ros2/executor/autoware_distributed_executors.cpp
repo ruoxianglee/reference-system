@@ -106,12 +106,10 @@ int main(int argc, char ** argv)
     tranformer_exe->add_node(nodes.at(node));
   }
   for (const auto & node : filter_node) {
-    tranformer_exe->add_node(nodes.at(node));
-    // filter_exe->add_node(nodes.at(node));
+    filter_exe->add_node(nodes.at(node));
   }
   for (const auto & node : detector_node) {
-    tranformer_exe->add_node(nodes.at(node));
-    // detector_exe->add_node(nodes.at(node));
+    detector_exe->add_node(nodes.at(node));
   }
   for (const auto & node : estimator_node) {
     estimator_exe->add_node(nodes.at(node));
@@ -119,42 +117,58 @@ int main(int argc, char ** argv)
 
   int core_ids[5] = {3, 4, 5, 6, 7};
 
-  // std::vector<std::thread> thread_pool;
-  // std::vector<std::shared_ptr<rclcpp::executors::SingleThreadedExecutor>> executors = {
-  //     timer_exe,
-  //     tranformer_exe,
-  //     filter_exe,
-  //     detector_exe,
-  //     estimator_exe};
+  std::vector<std::thread> thread_pool;
+  std::vector<std::shared_ptr<rclcpp::executors::SingleThreadedExecutor>> executors = {
+      timer_exe,
+      tranformer_exe,
+      filter_exe,
+      detector_exe,
+      estimator_exe};
 
-  // for (int i = 0; i < 3; ++i)
-  // {
-  //   thread_pool.emplace_back([&, i]()
-  //                            {
-  //     set_rt_properties(executor_thread_prio, core_ids[i]);
-  //     std::cout << "Thread " << i << " is running on CPU: " << sched_getcpu() << std::endl;
-  //     while (rclcpp::ok()) {
-  //       for (size_t j = i; j < executors.size(); j += 3) {
-  //         executors[j]->spin_some(std::chrono::milliseconds(0));
-  //       }
-  //     } });
-  // }
+  for (int i = 0; i < 4; ++i)
+  {
+    thread_pool.emplace_back([&, i]()
+                             {
+      set_rt_properties(executor_thread_prio, core_ids[i]);
+      std::cout << "Thread " << i << " is running on CPU: " << sched_getcpu() << std::endl;
+      switch (i)
+      {
+      case 0:
+        executors[i]->spin();
+        break;
+      case 1:
+        while(rclcpp::ok())
+        {
+          executors[i]->spin_some(std::chrono::milliseconds(0));
+          executors[i + 1]->spin_some(std::chrono::milliseconds(0));
+        }
+        break;
+      case 2:
+        executors[i + 1]->spin();
+        break;
+      case 3:
+        executors[i + 1]->spin();
+        break;
+      default:
+        break;
+      }
+  }
 
-  // for (auto &thread : thread_pool)
-  // {
-  //   thread.join();
-  // }
+  for (auto &thread : thread_pool)
+  {
+    thread.join();
+  }
 
-  std::thread timer_thread {[&]() {
-      set_rt_properties(executor_thread_prio, core_ids[0]);
-      std::cout << "Thread timer is running on CPU: " << sched_getcpu() << std::endl;
-      timer_exe->spin();
-    }};
-  std::thread tranformer_thread {[&]() {
-      set_rt_properties(executor_thread_prio, core_ids[1]);
-      std::cout << "Thread tranformer is running on CPU: " << sched_getcpu() << std::endl;
-      tranformer_exe->spin();
-    }};
+  // std::thread timer_thread {[&]() {
+  //     set_rt_properties(executor_thread_prio, core_ids[0]);
+  //     std::cout << "Thread timer is running on CPU: " << sched_getcpu() << std::endl;
+  //     timer_exe->spin();
+  //   }};
+  // std::thread tranformer_thread {[&]() {
+  //     set_rt_properties(executor_thread_prio, core_ids[1]);
+  //     std::cout << "Thread tranformer is running on CPU: " << sched_getcpu() << std::endl;
+  //     tranformer_exe->spin();
+  //   }};
   // std::thread filter_thread {[&]() {
   //     set_rt_properties(executor_thread_prio, core_ids[2]);
   //     std::cout << "Thread filter is running on CPU: " << sched_getcpu() << std::endl;
@@ -165,17 +179,17 @@ int main(int argc, char ** argv)
   //     std::cout << "Thread detector is running on CPU: " << sched_getcpu() << std::endl;
   //     detector_exe->spin();
   //   }};
-  std::thread estimator_thread {[&]() {
-      set_rt_properties(executor_thread_prio, core_ids[4]);
-      std::cout << "Thread estimator is running on CPU: " << sched_getcpu() << std::endl;
-      estimator_exe->spin();
-    }};
+  // std::thread estimator_thread {[&]() {
+  //     set_rt_properties(executor_thread_prio, core_ids[4]);
+  //     std::cout << "Thread estimator is running on CPU: " << sched_getcpu() << std::endl;
+  //     estimator_exe->spin();
+  //   }};
 
-  timer_thread.join();
-  tranformer_thread.join();
+  // timer_thread.join();
+  // tranformer_thread.join();
   // filter_thread.join();
   // detector_thread.join();
-  estimator_thread.join();
+  // estimator_thread.join();
 
   rclcpp::shutdown();
 }
