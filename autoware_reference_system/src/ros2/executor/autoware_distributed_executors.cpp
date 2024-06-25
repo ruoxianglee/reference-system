@@ -133,7 +133,7 @@ int main(int argc, char ** argv)
       std::cout << "Thread " << i << " is running on CPU: " << sched_getcpu() << std::endl;
       while (true) {
         for (size_t j = i; j < executors.size(); j += 3) {
-          executors[j].spin_some(std::chrono::milliseconds(0));
+          executors[j]->spin_some(std::chrono::milliseconds(0));
         }
         // std::this_thread::sleep_for(std::chrono::milliseconds(100));
       } });
