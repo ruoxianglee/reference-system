@@ -740,7 +740,7 @@ auto create_autoware_simplied_nodes()
     .input_topic = "FrontLidarDriver",
     .output_topic = "PointsTransformerFront",
     .number_crunch_limit = TimingConfig::POINTS_TRANSFORMER_FRONT,
-    .dynamic_workload = true}));
+    .dynamic_workload = false}));
 
   nodes.emplace_back(
     std::make_shared<typename SystemType::NewTransform>(

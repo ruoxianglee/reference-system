@@ -62,6 +62,24 @@ void set_rt_properties(int prio, int cpu)
   sched_setaffinity(0, sizeof(cpuset), &cpuset);
 }
 
+void cpu_dummy_task() {
+    // while (true) {
+    //     volatile unsigned long long sum = 0;
+    //     for (unsigned long long i = 0; i < 1000000000; ++i) {
+    //         sum += i;
+    //     }
+    // }
+
+    // std::random_device rd;
+    // std::mt19937 gen(rd());
+    // std::uniform_real_distribution<> dis(0, 50);
+    // double jitter = dis(gen);
+    // usleep(150000 - jitter*1000); // 150 ms - jitter
+
+    usleep(100000);
+    // sleep_randomly(80,5);
+}
+
 int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
@@ -125,7 +143,7 @@ int main(int argc, char ** argv)
       detector_exe,
       estimator_exe};
 
-  for (int i = 0; i < 4; ++i)
+  for (int i = 0; i < 5; ++i)
   {
     thread_pool.emplace_back([&, i]()
                              {
@@ -136,18 +154,24 @@ int main(int argc, char ** argv)
       case 0:
         executors[i]->spin();
         break;
+      // case 1:
+      //   while(rclcpp::ok())
+      //   {
+      //     executors[i]->spin_some(std::chrono::milliseconds(0));
+      //     executors[i + 1]->spin_some(std::chrono::milliseconds(0));
+      //   }
+      //   break;
       case 1:
-        while(rclcpp::ok())
-        {
-          executors[i]->spin_some(std::chrono::milliseconds(0));
-          executors[i + 1]->spin_some(std::chrono::milliseconds(0));
-        }
+        executors[i]->spin();
         break;
       case 2:
-        executors[i + 1]->spin();
+        executors[i]->spin();
         break;
       case 3:
-        executors[i + 1]->spin();
+        executors[i]->spin();
+        break;
+      case 4:
+        executors[i]->spin();
         break;
       default:
         break;
