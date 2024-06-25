@@ -94,6 +94,7 @@ private:
     uint32_t missed_samples = get_missed_samples_and_update_seq_nr(
       input_message, input_sequence_number_);
 
+    std::string node_name = this->get_name();
     if (node_name == "PointsTransformerFront")
     {
       std::cout << "PointsTransformerFront message ID: " << input_sequence_number_ << std::endl;
