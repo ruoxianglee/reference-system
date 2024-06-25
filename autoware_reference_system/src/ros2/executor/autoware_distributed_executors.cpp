@@ -81,13 +81,20 @@ int main(int argc, char ** argv)
     std::cout << node->get_name() << "\n";
   }
 
+  rclcpp::executors::SingleThreadedExecutor
+    timer_exe,
+    tranformer_exe,
+    filter_exe,
+    detector_exe,
+    estimator_exe;
+
   std::vector<rclcpp::executors::SingleThreadedExecutor> executors = {
     timer_exe,
     tranformer_exe,
     filter_exe,
     detector_exe,
     estimator_exe};
-
+    
   std::set<std::string> timer_node = {"FrontLidarDriver"};
   std::set<std::string> tranformer_node = {"PointsTransformerFront"};
   std::set<std::string> filter_node = {"RayGroundFilter"};
