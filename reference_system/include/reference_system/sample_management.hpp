@@ -306,7 +306,7 @@ void print_statistic_infomation(
 
   std::cout << "----------------------------------------------------------" <<
     std::endl;
-  std::cout << "sample path: (" << node_name << ") " << std::endl;
+  // std::cout << "sample path: (" << node_name << ") " << std::endl;
   // std::cout << "  order timepoint           sequence nr.                  node "
   //   "name     dropped samples" <<
   //   std::endl;
@@ -326,33 +326,6 @@ void print_statistic_infomation(
 
   (void)lost_samples;  // to avoid unused param warning in Clang
 
-  // hot path latency
-  uint64_t hot_path_latency_in_ns = 0;
-  bool does_contain_hot_path = false;
-  uint64_t root_timestamp = 0;
-  const auto settings = SampleManagementSettings::get();
-  // std::cout << "sample size: " << sample->size << std::endl;
-  for (uint64_t i = 0; i <= sample->size; ++i) {
-    uint64_t idx = sample->size - i - 1;
-    std::string current_node_name(
-      reinterpret_cast<const char *>(sample->stats[idx].node_name.data()));
-
-    if (settings.is_hot_path_root(current_node_name)) {
-      root_timestamp = std::max(root_timestamp, sample->stats[idx].timestamp);
-      std::cout << "Got root timestamp " << root_timestamp << std::endl;
-    }
-    // std::cout << "current_node_name: " << current_node_name << std::endl;
-    // std::cout << "settings.hot_path_sink(): " << settings.hot_path_sink() << std::endl;
-    if (current_node_name == settings.hot_path_sink()) {
-      hot_path_latency_in_ns = sample->stats[idx].timestamp;
-      does_contain_hot_path = true;
-      std::cout << "Got sink timestamp " << hot_path_latency_in_ns << std::endl;
-    }
-  }
-  std::cout << "Got sink timestamp " << sink_timestamp << std::endl;
-  
-  hot_path_latency_in_ns = sink_timestamp - root_timestamp;
-
   // hot path drops
   uint64_t hot_path_drops = 0;
 
@@ -368,20 +341,20 @@ void print_statistic_infomation(
   hot_path_drops += hot_path_drops;
 
   // std::cout << "latency" << std::endl;
-  std::cout << "now time: " << timestamp_in_ns << "min time: " << min_time_stamp << std::endl; 
+  // std::cout << "now time: " << timestamp_in_ns << "min time: " << min_time_stamp << std::endl; 
   advanced_statistics[node_name].latency.set(timestamp_in_ns - min_time_stamp); // current time - the earliest timestamp for the hot path
 
   std::cout << std::endl;
-  std::cout << "Statistics:" << std::endl;
-  std::cout << "  latency:                  " <<
-    advanced_statistics[node_name].latency << std::endl;
+  // std::cout << "Statistics:" << std::endl;
+  // std::cout << "  latency:                  " <<
+  //   advanced_statistics[node_name].latency << std::endl;
 
   std::cout << "hotpath" << std::endl;
   dropped_samples[node_name]["hotpath"].set(hot_path_drops);
   advanced_statistics[node_name].hot_path_latency.set(hot_path_latency_in_ns);
   std::cout << "  hot path:                 " << settings.hot_path_name() << std::endl;
   std::cout << "  hot path latency:         " <<
-    advanced_statistics[node_name].hot_path_latency << std::endl;
+    advanced_statistics[node_name].latency << std::endl;
   std::cout << "  hot path drops:           " <<
     dropped_samples[node_name]["hotpath"] << std::endl;
 
