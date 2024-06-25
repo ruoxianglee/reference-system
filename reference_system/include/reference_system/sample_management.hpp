@@ -266,6 +266,129 @@ std::ostream & operator<<(std::ostream & output, const statistic_value_t & v)
 }
 
 template<typename SampleTypePointer>
+void print_statistic_infomation(
+  const std::string & node_name,
+  const uint32_t lost_samples,
+  const SampleTypePointer & sample,
+  uint64_t sink_timestamp)
+{
+  static int benchmark_counter = 0;
+  ++benchmark_counter;
+
+  // benchmark_counter = dismissing first 100 samples to get rid of startup
+  // jitter
+  if (is_in_benchmark_mode() || sample->size <= 0 || benchmark_counter < 10) {
+    return;
+  }
+
+  static std::map<std::string, sample_statistic_t> advanced_statistics;
+  static std::map<std::string, std::map<std::string, statistic_value_t>> dropped_samples;
+
+  auto iter = advanced_statistics.find(node_name);
+  if (iter == advanced_statistics.end()) {
+    advanced_statistics[node_name].timepoint_of_first_received_sample = now_as_int();
+    advanced_statistics[node_name].latency.suffix = "ms";
+    advanced_statistics[node_name].latency.adjustment = 1000000.0;
+    advanced_statistics[node_name].hot_path_latency.suffix = "ms";
+    advanced_statistics[node_name].hot_path_latency.adjustment = 1000000.0;
+    advanced_statistics[node_name].behavior_planner_period.suffix = "ms";
+    advanced_statistics[node_name].behavior_planner_period.adjustment =
+      1000000.0;
+  }
+
+  const uint64_t timestamp_in_ns = static_cast<uint64_t>(
+    std::chrono::duration_cast<std::chrono::nanoseconds>(
+      std::chrono::system_clock::now().time_since_epoch())
+    .count());
+
+  static std::mutex cout_mutex;
+  std::lock_guard<std::mutex> lock(cout_mutex);
+
+  std::cout << "----------------------------------------------------------" <<
+    std::endl;
+  std::cout << "sample path: (" << node_name << ") " << std::endl;
+  // std::cout << "  order timepoint           sequence nr.                  node "
+  //   "name     dropped samples" <<
+  //   std::endl;
+
+  std::map<uint64_t, uint64_t> timestamp2Order;
+  uint64_t min_time_stamp = std::numeric_limits<uint64_t>::max();
+
+  for (uint64_t i = 0; i < sample->size; ++i) {
+    timestamp2Order[sample->stats[i].timestamp] = 0;
+    min_time_stamp = std::min(min_time_stamp, sample->stats[i].timestamp);
+  }
+
+  uint64_t i = 0;
+  for (auto & e : timestamp2Order) {
+    e.second = i++;
+  }
+
+  (void)lost_samples;  // to avoid unused param warning in Clang
+
+  // hot path latency
+  uint64_t hot_path_latency_in_ns = 0;
+  bool does_contain_hot_path = false;
+  uint64_t root_timestamp = 0;
+  const auto settings = SampleManagementSettings::get();
+  // std::cout << "sample size: " << sample->size << std::endl;
+  for (uint64_t i = 0; i <= sample->size; ++i) {
+    uint64_t idx = sample->size - i - 1;
+    std::string current_node_name(
+      reinterpret_cast<const char *>(sample->stats[idx].node_name.data()));
+
+    if (settings.is_hot_path_root(current_node_name)) {
+      root_timestamp = std::max(root_timestamp, sample->stats[idx].timestamp);
+      std::cout << "Got root timestamp " << root_timestamp << std::endl;
+    }
+    // std::cout << "current_node_name: " << current_node_name << std::endl;
+    // std::cout << "settings.hot_path_sink(): " << settings.hot_path_sink() << std::endl;
+    if (current_node_name == settings.hot_path_sink()) {
+      hot_path_latency_in_ns = sample->stats[idx].timestamp;
+      does_contain_hot_path = true;
+      std::cout << "Got sink timestamp " << hot_path_latency_in_ns << std::endl;
+    }
+  }
+  hot_path_latency_in_ns = sink_timestamp - root_timestamp;
+
+  // hot path drops
+  uint64_t hot_path_drops = 0;
+
+  for (uint64_t i = 0; i < sample->size; ++i) {
+    uint64_t idx = sample->size - i - 1;
+    std::string current_node_name(
+      reinterpret_cast<const char *>(sample->stats[idx].node_name.data()));
+    if (settings.is_hot_path_node(current_node_name) > 0) {
+      hot_path_drops += sample->stats[idx].dropped_samples;
+      std::cout << "Got message drops " << hot_path_drops << std::endl;
+    }
+  }
+  hot_path_drops += hot_path_drops;
+
+  // std::cout << "latency" << std::endl;
+  std::cout << "now time: " << timestamp_in_ns << "min time: " << min_time_stamp << std::endl; 
+  advanced_statistics[node_name].latency.set(timestamp_in_ns - min_time_stamp); // current time - the earliest timestamp for the hot path
+
+  std::cout << std::endl;
+  std::cout << "Statistics:" << std::endl;
+  std::cout << "  latency:                  " <<
+    advanced_statistics[node_name].latency << std::endl;
+
+  std::cout << "hotpath" << std::endl;
+  dropped_samples[node_name]["hotpath"].set(hot_path_drops);
+  advanced_statistics[node_name].hot_path_latency.set(hot_path_latency_in_ns);
+  std::cout << "  hot path:                 " << settings.hot_path_name() << std::endl;
+  std::cout << "  hot path latency:         " <<
+    advanced_statistics[node_name].hot_path_latency << std::endl;
+  std::cout << "  hot path drops:           " <<
+    dropped_samples[node_name]["hotpath"] << std::endl;
+
+  std::cout << "----------------------------------------------------------" <<
+    std::endl;
+  std::cout << std::endl;
+}
+
+template<typename SampleTypePointer>
 void print_sample_path(
   const std::string & node_name,
   const uint32_t lost_samples,
@@ -361,7 +484,7 @@ void print_sample_path(
   bool does_contain_hot_path = false;
   uint64_t root_timestamp = 0;
   const auto settings = SampleManagementSettings::get();
-  std::cout << "sample size: " << sample->size << std::endl;
+  // std::cout << "sample size: " << sample->size << std::endl;
   for (uint64_t i = 0; i <= sample->size; ++i) {
     uint64_t idx = sample->size - i - 1;
     std::string current_node_name(
@@ -369,14 +492,14 @@ void print_sample_path(
 
     if (settings.is_hot_path_root(current_node_name)) {
       root_timestamp = std::max(root_timestamp, sample->stats[idx].timestamp);
-      std::cout << "Got root timestamp " << root_timestamp << std::endl;
+      // std::cout << "Got root timestamp " << root_timestamp << std::endl;
     }
-    std::cout << "current_node_name: " << current_node_name << std::endl;
-    std::cout << "settings.hot_path_sink(): " << settings.hot_path_sink() << std::endl;
+    // std::cout << "current_node_name: " << current_node_name << std::endl;
+    // std::cout << "settings.hot_path_sink(): " << settings.hot_path_sink() << std::endl;
     if (current_node_name == settings.hot_path_sink()) {
       hot_path_latency_in_ns = sample->stats[idx].timestamp;
       does_contain_hot_path = true;
-      std::cout << "Got sink timestamp " << hot_path_latency_in_ns << std::endl;
+      // std::cout << "Got sink timestamp " << hot_path_latency_in_ns << std::endl;
     }
   }
   hot_path_latency_in_ns -= root_timestamp;
@@ -390,7 +513,7 @@ void print_sample_path(
         reinterpret_cast<const char *>(sample->stats[idx].node_name.data()));
       if (settings.is_hot_path_node(current_node_name) > 0) {
         hot_path_drops += sample->stats[idx].dropped_samples;
-        std::cout << "Got message drops " << hot_path_drops << std::endl;
+        // std::cout << "Got message drops " << hot_path_drops << std::endl;
       }
     }
   }
