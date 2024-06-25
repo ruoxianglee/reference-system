@@ -151,7 +151,7 @@ int main(int argc, char ** argv)
         break;
       default:
         break;
-      }
+      });
   }
 
   for (auto &thread : thread_pool)
