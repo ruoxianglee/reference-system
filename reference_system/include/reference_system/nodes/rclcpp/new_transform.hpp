@@ -40,7 +40,7 @@ public:
     subscription_ = this->create_subscription<message_t>(
       settings.input_topic, 1,
       [this](const message_t::SharedPtr msg) {input_callback(msg);});
-    publisher_ = this->create_publisher<message_t>(settings.output_topic, 2);
+    publisher_ = this->create_publisher<message_t>(settings.output_topic, 5);
 
     if(dynamic_workload_)
     {
