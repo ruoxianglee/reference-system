@@ -108,7 +108,6 @@ private:
     output_message.get().data[0] = number_cruncher_result;
     publisher_->publish(std::move(output_message));
 
-    std::string node_name = this->get_name();
     if (node_name == "ObjectCollisionEstimator")
     {
       // hot path latency

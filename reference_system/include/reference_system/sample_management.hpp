@@ -306,10 +306,6 @@ void print_statistic_infomation(
 
   std::cout << "----------------------------------------------------------" <<
     std::endl;
-  // std::cout << "sample path: (" << node_name << ") " << std::endl;
-  // std::cout << "  order timepoint           sequence nr.                  node "
-  //   "name     dropped samples" <<
-  //   std::endl;
 
   std::map<uint64_t, uint64_t> timestamp2Order;
   uint64_t min_time_stamp = std::numeric_limits<uint64_t>::max();
@@ -326,6 +322,8 @@ void print_statistic_infomation(
 
   (void)lost_samples;  // to avoid unused param warning in Clang
 
+  const auto settings = SampleManagementSettings::get();
+  
   // hot path drops
   uint64_t hot_path_drops = 0;
 
@@ -344,14 +342,9 @@ void print_statistic_infomation(
   // std::cout << "now time: " << timestamp_in_ns << "min time: " << min_time_stamp << std::endl; 
   advanced_statistics[node_name].latency.set(timestamp_in_ns - min_time_stamp); // current time - the earliest timestamp for the hot path
 
-  std::cout << std::endl;
-  // std::cout << "Statistics:" << std::endl;
-  // std::cout << "  latency:                  " <<
-  //   advanced_statistics[node_name].latency << std::endl;
-
   std::cout << "hotpath" << std::endl;
   dropped_samples[node_name]["hotpath"].set(hot_path_drops);
-  advanced_statistics[node_name].hot_path_latency.set(hot_path_latency_in_ns);
+  // advanced_statistics[node_name].hot_path_latency.set(hot_path_latency_in_ns);
   std::cout << "  hot path:                 " << settings.hot_path_name() << std::endl;
   std::cout << "  hot path latency:         " <<
     advanced_statistics[node_name].latency << std::endl;
