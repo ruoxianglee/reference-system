@@ -135,7 +135,7 @@ private:
       //   }
       // }
       // hot_path_drops += missed_samples;
-      print_statistic_infomation(this->get_name(), missed_samples, input_message);
+      print_statistic_infomation(this->get_name(), missed_samples, input_message, timestamp);
     }
   }
 
