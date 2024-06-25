@@ -174,7 +174,7 @@ int main(int argc, char ** argv)
   timer_thread.join();
   tranformer_thread.join();
   // filter_thread.join();
-  detector_thread.join();
+  // detector_thread.join();
   estimator_thread.join();
 
   rclcpp::shutdown();
