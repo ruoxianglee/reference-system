@@ -110,7 +110,8 @@ int main(int argc, char ** argv)
     // filter_exe->add_node(nodes.at(node));
   }
   for (const auto & node : detector_node) {
-    detector_exe->add_node(nodes.at(node));
+    tranformer_exe->add_node(nodes.at(node));
+    // detector_exe->add_node(nodes.at(node));
   }
   for (const auto & node : estimator_node) {
     estimator_exe->add_node(nodes.at(node));
@@ -159,11 +160,11 @@ int main(int argc, char ** argv)
   //     std::cout << "Thread filter is running on CPU: " << sched_getcpu() << std::endl;
   //     filter_exe->spin();
   //   }};
-  std::thread detector_thread {[&]() {
-      set_rt_properties(executor_thread_prio, core_ids[3]);
-      std::cout << "Thread detector is running on CPU: " << sched_getcpu() << std::endl;
-      detector_exe->spin();
-    }};
+  // std::thread detector_thread {[&]() {
+  //     set_rt_properties(executor_thread_prio, core_ids[3]);
+  //     std::cout << "Thread detector is running on CPU: " << sched_getcpu() << std::endl;
+  //     detector_exe->spin();
+  //   }};
   std::thread estimator_thread {[&]() {
       set_rt_properties(executor_thread_prio, core_ids[4]);
       std::cout << "Thread estimator is running on CPU: " << sched_getcpu() << std::endl;
