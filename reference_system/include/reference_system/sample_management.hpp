@@ -361,7 +361,8 @@ void print_sample_path(
   bool does_contain_hot_path = false;
   uint64_t root_timestamp = 0;
   const auto settings = SampleManagementSettings::get();
-  for (uint64_t i = 0; i < sample->size; ++i) {
+  std::cout << "sample size: " << sample->size << endl;
+  for (uint64_t i = 0; i <= sample->size; ++i) {
     uint64_t idx = sample->size - i - 1;
     std::string current_node_name(
       reinterpret_cast<const char *>(sample->stats[idx].node_name.data()));
