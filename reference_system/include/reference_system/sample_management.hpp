@@ -269,8 +269,7 @@ template<typename SampleTypePointer>
 void print_statistic_infomation(
   const std::string & node_name,
   const uint32_t lost_samples,
-  const SampleTypePointer & sample,
-  uint64_t sink_timestamp)
+  const SampleTypePointer & sample)
 {
   static int benchmark_counter = 0;
   ++benchmark_counter;
@@ -339,7 +338,7 @@ void print_statistic_infomation(
   hot_path_drops += hot_path_drops;
 
   // std::cout << "latency" << std::endl;
-  // std::cout << "now time: " << timestamp_in_ns << "min time: " << min_time_stamp << std::endl; 
+  std::cout << "now time: " << timestamp_in_ns << "min time: " << min_time_stamp << std::endl; 
   advanced_statistics[node_name].latency.set(timestamp_in_ns - min_time_stamp); // current time - the earliest timestamp for the hot path
 
   std::cout << "hotpath" << std::endl;

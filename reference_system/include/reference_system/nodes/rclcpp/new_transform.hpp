@@ -94,12 +94,6 @@ private:
     uint32_t missed_samples = get_missed_samples_and_update_seq_nr(
       input_message, input_sequence_number_);
 
-    std::string node_name = this->get_name();
-    // if (node_name == "PointsTransformerFront")
-    // {
-    //   std::cout << "PointsTransformerFront message ID: " << input_sequence_number_ << std::endl;
-    // }
-
     set_sample(
       this->get_name(), sequence_number_++, missed_samples, timestamp,
       output_message.get());
@@ -108,9 +102,10 @@ private:
     output_message.get().data[0] = 0;
     publisher_->publish(std::move(output_message));
 
+    std::string node_name = this->get_name();
     if (node_name == "ObjectCollisionEstimator")
     {
-      print_statistic_infomation(this->get_name(), missed_samples, input_message, timestamp);
+      print_statistic_infomation(this->get_name(), missed_samples, input_message);
     }
   }
 
