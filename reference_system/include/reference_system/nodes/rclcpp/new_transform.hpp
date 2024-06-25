@@ -61,10 +61,10 @@ private:
     int scaled_elapsed_seconds = elapsed_seconds % super_period;
     
     if ((scaled_elapsed_seconds >=0) && (scaled_elapsed_seconds <=30)) {
-      sleep_time_ms = 80;
+      sleep_time_ms = 200;
     } 
     else if ((scaled_elapsed_seconds >30) && (scaled_elapsed_seconds <=60)) {
-      sleep_time_ms = 140;
+      sleep_time_ms = 200;
     }
 
     if (sleep_time_ms != pre_sleep_time_ms_)
