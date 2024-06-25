@@ -76,7 +76,7 @@ void cpu_dummy_task() {
     // double jitter = dis(gen);
     // usleep(150000 - jitter*1000); // 150 ms - jitter
 
-    usleep(100000);
+    usleep(120000);
     // sleep_randomly(80,5);
 }
 
@@ -165,7 +165,12 @@ int main(int argc, char ** argv)
         executors[i]->spin();
         break;
       case 2:
-        executors[i]->spin();
+        while(rclcpp::ok())
+        {
+          cpu_dummy_task();
+          executors[i]->spin_some(std::chrono::milliseconds(0));
+        }
+        // executors[i]->spin();
         break;
       case 3:
         executors[i]->spin();
