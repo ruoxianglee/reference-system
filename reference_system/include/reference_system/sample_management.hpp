@@ -370,6 +370,8 @@ void print_sample_path(
       root_timestamp = std::max(root_timestamp, sample->stats[idx].timestamp);
       std::cout << "Got root timestamp " << root_timestamp << std::endl;
     }
+    std::cout << "current_node_name: " << current_node_name << std::endl;
+    std::cout << "settings.hot_path_sink(): " << settings.hot_path_sink() << std::endl;
     if (current_node_name == settings.hot_path_sink()) {
       hot_path_latency_in_ns = sample->stats[idx].timestamp;
       does_contain_hot_path = true;
@@ -418,7 +420,7 @@ void print_sample_path(
     }
   }
 
-  std::cout << "latency" << std::endl;
+  // std::cout << "latency" << std::endl;
   advanced_statistics[node_name].latency.set(timestamp_in_ns - min_time_stamp); // current time - the earliest timestamp for the hot path
 
   std::cout << std::endl;
