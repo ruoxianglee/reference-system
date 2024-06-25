@@ -81,12 +81,12 @@ int main(int argc, char ** argv)
     std::cout << node->get_name() << "\n";
   }
 
-  rclcpp::executors::SingleThreadedExecutor
+  std::vector<rclcpp::executors::SingleThreadedExecutor> executors = {
     timer_exe,
     tranformer_exe,
     filter_exe,
     detector_exe,
-    estimator_exe;
+    estimator_exe};
 
   std::set<std::string> timer_node = {"FrontLidarDriver"};
   std::set<std::string> tranformer_node = {"PointsTransformerFront"};
@@ -113,12 +113,12 @@ int main(int argc, char ** argv)
   int core_ids[5] = {3, 4, 5};
 
   std::vector<std::thread> thread_pool;
-  std::vector<std::shared_ptr<rclcpp::executors::SingleThreadedExecutor>> executors = {
-      std::make_shared<rclcpp::executors::SingleThreadedExecutor>(timer_exe),
-      std::make_shared<rclcpp::executors::SingleThreadedExecutor>(tranformer_exe),
-      std::make_shared<rclcpp::executors::SingleThreadedExecutor>(filter_exe),
-      std::make_shared<rclcpp::executors::SingleThreadedExecutor>(detector_exe),
-      std::make_shared<rclcpp::executors::SingleThreadedExecutor>(estimator_exe)};
+  // std::vector<std::shared_ptr<rclcpp::executors::SingleThreadedExecutor>> executors = {
+  //     std::make_shared<rclcpp::executors::SingleThreadedExecutor>(timer_exe),
+  //     std::make_shared<rclcpp::executors::SingleThreadedExecutor>(tranformer_exe),
+  //     std::make_shared<rclcpp::executors::SingleThreadedExecutor>(filter_exe),
+  //     std::make_shared<rclcpp::executors::SingleThreadedExecutor>(detector_exe),
+  //     std::make_shared<rclcpp::executors::SingleThreadedExecutor>(estimator_exe)};
 
   for (int i = 0; i < 3; ++i)
   {
