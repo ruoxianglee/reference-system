@@ -333,7 +333,7 @@ void print_statistic_infomation(
       reinterpret_cast<const char *>(sample->stats[idx].node_name.data()));
     if (settings.is_hot_path_node(current_node_name) > 0) {
       hot_path_drops += sample->stats[idx].dropped_samples;
-      std::cout << "Got message drops " << hot_path_drops << std::endl;
+      // std::cout << "Got message drops " << hot_path_drops << std::endl;
     }
   }
   hot_path_drops += hot_path_drops;
