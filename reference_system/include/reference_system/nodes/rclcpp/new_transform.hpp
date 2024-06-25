@@ -122,7 +122,6 @@ private:
       // }
       // hot_path_latency_in_ns = timestamp - root_timestamp;
 
-
       // hot path drops
       // uint64_t hot_path_drops = 0;
       // for (uint64_t i = 0; i < sample->size; ++i) {
