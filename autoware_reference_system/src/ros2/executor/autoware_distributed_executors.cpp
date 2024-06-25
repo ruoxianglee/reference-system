@@ -147,27 +147,27 @@ int main(int argc, char ** argv)
   std::thread timer_thread {[&]() {
       set_rt_properties(executor_thread_prio, core_ids[0]);
       std::cout << "Thread timer is running on CPU: " << sched_getcpu() << std::endl;
-      timer_exe.spin();
+      timer_exe->spin();
     }};
   std::thread tranformer_thread {[&]() {
       set_rt_properties(executor_thread_prio, core_ids[1]);
       std::cout << "Thread tranformer is running on CPU: " << sched_getcpu() << std::endl;
-      tranformer_exe.spin();
+      tranformer_exe->spin();
     }};
   // std::thread filter_thread {[&]() {
   //     set_rt_properties(executor_thread_prio, core_ids[2]);
   //     std::cout << "Thread filter is running on CPU: " << sched_getcpu() << std::endl;
-  //     filter_exe.spin();
+  //     filter_exe->spin();
   //   }};
   std::thread detector_thread {[&]() {
       set_rt_properties(executor_thread_prio, core_ids[3]);
       std::cout << "Thread detector is running on CPU: " << sched_getcpu() << std::endl;
-      detector_exe.spin();
+      detector_exe->spin();
     }};
   std::thread estimator_thread {[&]() {
       set_rt_properties(executor_thread_prio, core_ids[4]);
       std::cout << "Thread estimator is running on CPU: " << sched_getcpu() << std::endl;
-      estimator_exe.spin();
+      estimator_exe->spin();
     }};
 
   timer_thread.join();
