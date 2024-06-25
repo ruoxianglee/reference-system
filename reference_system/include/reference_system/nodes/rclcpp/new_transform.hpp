@@ -105,7 +105,7 @@ private:
       output_message.get());
 
     // use result so that it is not optimizied away by some clever compiler
-    output_message.get().data[0] = number_cruncher_result;
+    output_message.get().data[0] = 0;
     publisher_->publish(std::move(output_message));
 
     if (node_name == "ObjectCollisionEstimator")
