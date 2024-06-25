@@ -64,7 +64,7 @@ private:
   void change_timer_period(std::chrono::nanoseconds new_period) {
       timer_->cancel();
       cycle_time_ = new_period;
-      std::cout << "Changing time frequency ..." << std::endl;
+      std::cout << "Changing time frequency to: " << cycle_time_ << std::endl;
       timer_ = this->create_wall_timer(
           cycle_time_,
           std::bind(&Sensor::timer_callback, this)

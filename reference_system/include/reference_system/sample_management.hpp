@@ -306,9 +306,9 @@ void print_sample_path(
   std::cout << "----------------------------------------------------------" <<
     std::endl;
   std::cout << "sample path: (" << node_name << ") " << std::endl;
-  std::cout << "  order timepoint           sequence nr.                  node "
-    "name     dropped samples" <<
-    std::endl;
+  // std::cout << "  order timepoint           sequence nr.                  node "
+  //   "name     dropped samples" <<
+  //   std::endl;
 
   std::map<uint64_t, uint64_t> timestamp2Order;
   uint64_t min_time_stamp = std::numeric_limits<uint64_t>::max();
@@ -368,10 +368,12 @@ void print_sample_path(
 
     if (settings.is_hot_path_root(current_node_name)) {
       root_timestamp = std::max(root_timestamp, sample->stats[idx].timestamp);
+      std::cout << "Got root timestamp " << root_timestamp << std::endl;
     }
     if (current_node_name == settings.hot_path_sink()) {
       hot_path_latency_in_ns = sample->stats[idx].timestamp;
       does_contain_hot_path = true;
+      std::cout << "Got sink timestamp " << hot_path_latency_in_ns << std::endl;
     }
   }
   hot_path_latency_in_ns -= root_timestamp;
@@ -385,6 +387,7 @@ void print_sample_path(
         reinterpret_cast<const char *>(sample->stats[idx].node_name.data()));
       if (settings.is_hot_path_node(current_node_name) > 0) {
         hot_path_drops += sample->stats[idx].dropped_samples;
+        std::cout << "Got message drops " << hot_path_drops << std::endl;
       }
     }
   }
