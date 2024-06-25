@@ -79,7 +79,7 @@ private:
   void input_callback(const message_t::SharedPtr input_message)
   {
     uint64_t timestamp = now_as_int();
-    auto number_cruncher_result = number_cruncher(number_crunch_limit_);
+    // auto number_cruncher_result = number_cruncher(number_crunch_limit_);
 
     if(dynamic_workload_){
       dynamic_workloads();
