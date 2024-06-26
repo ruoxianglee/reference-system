@@ -57,7 +57,8 @@ private:
     set_sample(
       this->get_name(), sequence_number_++, 0, timestamp,
       message.get());
-
+    
+    std::this_thread::sleep_for(std::chrono::milliseconds(5));
     publisher_->publish(std::move(message));
   }
 
