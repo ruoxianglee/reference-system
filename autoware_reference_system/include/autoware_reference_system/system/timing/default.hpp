@@ -26,7 +26,7 @@ struct Default
   using milliseconds = std::chrono::milliseconds;
 
   // sensors
-  static constexpr time_t FRONT_LIDAR_DRIVER = milliseconds(140);
+  static constexpr time_t FRONT_LIDAR_DRIVER = milliseconds(100);
   static constexpr time_t REAR_LIDAR_DRIVER = milliseconds(100);
   static constexpr time_t POINT_CLOUD_MAP = milliseconds(120);
   static constexpr time_t VISUALIZER = milliseconds(60);
