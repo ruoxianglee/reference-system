@@ -61,10 +61,10 @@ private:
     int scaled_elapsed_seconds = elapsed_seconds % super_period;
     
     if ((scaled_elapsed_seconds >=0) && (scaled_elapsed_seconds <=30)) {
-      sleep_time_ms = 80;
+      sleep_time_ms = 50;
     } 
     else if ((scaled_elapsed_seconds >30) && (scaled_elapsed_seconds <=60)) {
-      sleep_time_ms = 100;
+      sleep_time_ms = 120;
     }
 
     if (sleep_time_ms != pre_sleep_time_ms_)
@@ -84,7 +84,7 @@ private:
     if(dynamic_workload_){
       dynamic_workloads();
     } else {
-      std::this_thread::sleep_for(std::chrono::milliseconds(80));
+      std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
 
     auto output_message = publisher_->borrow_loaned_message();

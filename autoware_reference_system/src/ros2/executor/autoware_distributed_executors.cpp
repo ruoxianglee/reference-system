@@ -27,6 +27,8 @@
 #include <unistd.h>
 #include <sys/syscall.h>
 #include <thread>
+#include <mutex>
+#include <chrono>
 
 #include "rclcpp/rclcpp.hpp"
 #include "reference_system/system/type/rclcpp_system.hpp"
@@ -143,6 +145,9 @@ int main(int argc, char ** argv)
       detector_exe,
       estimator_exe};
 
+  // Shared mutex for resource competition
+  std::mutex mtx;
+
   for (int i = 0; i < 5; ++i)
   {
     thread_pool.emplace_back([&, i]()
@@ -154,26 +159,26 @@ int main(int argc, char ** argv)
       case 0:
         executors[i]->spin();
         break;
-      // case 1:
-      //   while(rclcpp::ok())
-      //   {
-      //     executors[i]->spin_some(std::chrono::milliseconds(0));
-      //     executors[i + 1]->spin_some(std::chrono::milliseconds(0));
-      //   }
-      //   break;
       case 1:
-        executors[i]->spin();
-        break;
-      case 2:
         while(rclcpp::ok())
         {
-          cpu_dummy_task();
+          std::unique_lock<std::mutex> lock(mtx);
           executors[i]->spin_some(std::chrono::milliseconds(0));
+          lock.unlock();
+          std::this_thread::sleep_for(std::chrono::milliseconds(5));
         }
-        // executors[i]->spin();
+        break;
+      case 2:
+        executors[i]->spin();
         break;
       case 3:
-        executors[i]->spin();
+        while(rclcpp::ok())
+        {
+          std::unique_lock<std::mutex> lock(mtx);
+          executors[i]->spin_some(std::chrono::milliseconds(0));
+          lock.unlock();
+          std::this_thread::sleep_for(std::chrono::milliseconds(5));
+        }
         break;
       case 4:
         executors[i]->spin();
