@@ -82,8 +82,8 @@ private:
     // auto number_cruncher_result = number_cruncher(number_crunch_limit_);
 
     if(dynamic_workload_){
-      // dynamic_workloads();
-      sleep_randomly(90,5);
+      dynamic_workloads();
+      // sleep_randomly(90,5);
     } else {
       std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
