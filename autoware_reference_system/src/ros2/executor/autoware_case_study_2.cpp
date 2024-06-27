@@ -149,14 +149,14 @@ int main(int argc, char ** argv)
         {
           {
             std::unique_lock<std::mutex> lock(mtx);
-            is_thread_a_running = true;
+            is_thread_1_running = true;
           }
           
           executors[i]->spin_some(std::chrono::milliseconds(0));
 
           {
             std::unique_lock<std::mutex> lock(mtx);
-            is_thread_a_running = false;
+            is_thread_1_running = false;
           }
           
           cv.notify_all();
@@ -172,7 +172,7 @@ int main(int argc, char ** argv)
         {
           {
             std::unique_lock<std::mutex> lock(mtx);
-            cv.wait(lock, [] { return !is_thread_a_running; });
+            cv.wait(lock, [] { return !is_thread_1_running; });
           }
 
           executors[i]->spin_some(std::chrono::milliseconds(0));
