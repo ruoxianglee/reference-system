@@ -41,6 +41,11 @@
 int executor_thread_prio = 0; //nice value
 int dummy_task_prio = -10;
 
+// Shared mutex for resource competition
+std::mutex mtx;
+std::condition_variable cv;
+bool is_thread_1_running = false;
+
 void set_rt_properties(int prio, int cpu)
 {
   // Method 1: set scheduling policy and priority
@@ -127,11 +132,6 @@ int main(int argc, char ** argv)
       filter_exe,
       detector_exe,
       estimator_exe};
-
-  // Shared mutex for resource competition
-  std::mutex mtx;
-  std::condition_variable cv;
-  bool is_thread_1_running = false;
 
   for (int i = 0; i < 5; ++i)
   {
