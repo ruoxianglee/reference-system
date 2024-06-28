@@ -303,8 +303,8 @@ void print_statistic_infomation(
   static std::mutex cout_mutex;
   std::lock_guard<std::mutex> lock(cout_mutex);
 
-  std::cout << "----------------------------------------------------------" <<
-    std::endl;
+  // std::cout << "----------------------------------------------------------" <<
+    // std::endl;
 
   std::map<uint64_t, uint64_t> timestamp2Order;
   uint64_t min_time_stamp = std::numeric_limits<uint64_t>::max();
@@ -341,18 +341,18 @@ void print_statistic_infomation(
   // std::cout << "now time: " << timestamp_in_ns << "min time: " << min_time_stamp << std::endl; 
   advanced_statistics[node_name].latency.set(timestamp_in_ns - min_time_stamp); // current time - the earliest timestamp for the hot path
 
-  std::cout << "hotpath" << std::endl;
+  // std::cout << "hotpath" << std::endl;
   dropped_samples[node_name]["hotpath"].set(hot_path_drops);
   // advanced_statistics[node_name].hot_path_latency.set(hot_path_latency_in_ns);
-  std::cout << "  hot path:                 " << settings.hot_path_name() << std::endl;
+  // std::cout << "  hot path:                 " << settings.hot_path_name() << std::endl;
   std::cout << "  hot path latency:         " <<
     advanced_statistics[node_name].latency << std::endl;
-  std::cout << "  hot path drops:           " <<
-    dropped_samples[node_name]["hotpath"] << std::endl;
+  // std::cout << "  hot path drops:           " <<
+    // dropped_samples[node_name]["hotpath"] << std::endl;
 
-  std::cout << "----------------------------------------------------------" <<
-    std::endl;
-  std::cout << std::endl;
+  // std::cout << "----------------------------------------------------------" <<
+  //   std::endl;
+  // std::cout << std::endl;
 }
 
 template<typename SampleTypePointer>
