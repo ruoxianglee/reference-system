@@ -85,22 +85,22 @@ private:
     if(dynamic_workload_){
       // dynamic_workloads();
       sleep_randomly(90,20);
-      std::cout << node_name << ": (90,20)" << std::endl;
+      // std::cout << node_name << ": (90,20)" << std::endl;
     } else {
       if (node_name == "PointsTransformerFront")
       {
-        std::cout << "PointsTransformerFront: (60,5)" << std::endl;
+        // std::cout << "PointsTransformerFront: (60,5)" << std::endl;
         sleep_randomly(60,5);
       }
       else if (node_name == "EuclideanClusterDetector")
       {
-        std::cout << "EuclideanClusterDetector: (30,5)" << std::endl;
+        // std::cout << "EuclideanClusterDetector: (30,5)" << std::endl;
         sleep_randomly(30,5);
       }
       else
       {
         sleep_randomly(50,5);
-        std::cout << node_name << ": (50,5)" << std::endl;
+        // std::cout << node_name << ": (50,5)" << std::endl;
       }
         
       // std::this_thread::sleep_for(std::chrono::milliseconds(50));
