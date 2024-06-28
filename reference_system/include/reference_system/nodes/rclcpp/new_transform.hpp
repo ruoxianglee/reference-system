@@ -82,10 +82,11 @@ private:
     // auto number_cruncher_result = number_cruncher(number_crunch_limit_);
 
     if(dynamic_workload_){
-      dynamic_workloads();
-      // sleep_randomly(90,5);
+      // dynamic_workloads();
+      sleep_randomly(90,20);
     } else {
-      std::this_thread::sleep_for(std::chrono::milliseconds(50));
+      sleep_randomly(50,5);
+      // std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
 
     auto output_message = publisher_->borrow_loaned_message();
