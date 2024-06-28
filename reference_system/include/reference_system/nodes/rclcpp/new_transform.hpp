@@ -61,10 +61,12 @@ private:
     int scaled_elapsed_seconds = elapsed_seconds % super_period;
     
     if ((scaled_elapsed_seconds >=0) && (scaled_elapsed_seconds <=30)) {
-      sleep_time_ms = 50;
+      // sleep_time_ms = 50;
+      sleep_randomly(50,5);
     } 
     else if ((scaled_elapsed_seconds >30) && (scaled_elapsed_seconds <=60)) {
-      sleep_time_ms = 120;
+      // sleep_time_ms = 120;
+      sleep_randomly(120,10);
     }
 
     if (sleep_time_ms != pre_sleep_time_ms_)
@@ -73,7 +75,7 @@ private:
     pre_sleep_time_ms_ = sleep_time_ms;
 
     // Sleep for the determined amount of time
-    std::this_thread::sleep_for(std::chrono::milliseconds(sleep_time_ms));
+    // std::this_thread::sleep_for(std::chrono::milliseconds(sleep_time_ms));
   }
 
   void input_callback(const message_t::SharedPtr input_message)
@@ -83,8 +85,8 @@ private:
 
     std::string node_name = this->get_name();
     if(dynamic_workload_){
-      // dynamic_workloads();
-      sleep_randomly(90,20);
+      dynamic_workloads();
+      // sleep_randomly(90,20);
       // std::cout << node_name << ": (90,20)" << std::endl;
     } else {
       if (node_name == "PointsTransformerFront")
