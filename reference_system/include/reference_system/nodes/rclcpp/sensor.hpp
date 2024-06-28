@@ -16,6 +16,7 @@
 #include <chrono>
 #include <string>
 #include <utility>
+#include <iostream>
 
 #include "rclcpp/rclcpp.hpp"
 #include "reference_system/msg_types.hpp"
@@ -75,7 +76,11 @@ private:
   {
       auto timeInMs = static_cast<int>(msg->data);
       std::cout << "Changing time frequency to: " << timeInMs << std::endl;
+      auto start = std::chrono::high_resolution_clock::now();
       change_timer_period(std::chrono::milliseconds(timeInMs));
+      auto end = std::chrono::high_resolution_clock::now();
+      auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+      std::cout << "Execution time: " << duration << " ns" << std::endl;
   }
 
 private:
