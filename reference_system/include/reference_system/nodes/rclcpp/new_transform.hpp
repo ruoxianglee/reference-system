@@ -90,12 +90,12 @@ private:
       if (node_name == "PointsTransformerFront")
       {
         // std::cout << "PointsTransformerFront: (60,5)" << std::endl;
-        sleep_randomly(80,5);
+        sleep_randomly(60,5);
       }
       else if (node_name == "EuclideanClusterDetector")
       {
         // std::cout << "EuclideanClusterDetector: (30,5)" << std::endl;
-        sleep_randomly(30,5);
+        sleep_randomly(20,5);
       }
       else
       {
