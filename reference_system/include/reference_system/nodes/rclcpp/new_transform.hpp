@@ -85,8 +85,8 @@ private:
 
     std::string node_name = this->get_name();
     if(dynamic_workload_){
-      // dynamic_workloads();
-      sleep_randomly(90,20);
+      dynamic_workloads();
+      // sleep_randomly(90,20);
       // std::cout << node_name << ": (90,20)" << std::endl;
     } else {
       if (node_name == "PointsTransformerFront")
