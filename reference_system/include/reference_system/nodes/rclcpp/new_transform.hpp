@@ -81,11 +81,28 @@ private:
     uint64_t timestamp = now_as_int();
     // auto number_cruncher_result = number_cruncher(number_crunch_limit_);
 
+    std::string node_name = this->get_name();
     if(dynamic_workload_){
       // dynamic_workloads();
       sleep_randomly(90,20);
+      std::cout << node_name << ": (90,20)" << std::endl;
     } else {
-      sleep_randomly(50,5);
+      if (node_name == "PointsTransformerFront")
+      {
+        std::cout << "PointsTransformerFront: (60,5)" << std::endl;
+        sleep_randomly(60,5);
+      }
+      else if (node_name == "EuclideanClusterDetector")
+      {
+        std::cout << "PointsTransformerFront: (30,5)" << std::endl;
+        sleep_randomly(30,5);
+      }
+      else
+      {
+        sleep_randomly(50,5);
+        std::cout << node_name << ": (50,5)" << std::endl;
+      }
+        
       // std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
 
@@ -104,7 +121,6 @@ private:
     output_message.get().data[0] = 0;
     publisher_->publish(std::move(output_message));
 
-    std::string node_name = this->get_name();
     if (node_name == "ObjectCollisionEstimator")
     {
       print_statistic_infomation(this->get_name(), missed_samples, input_message);

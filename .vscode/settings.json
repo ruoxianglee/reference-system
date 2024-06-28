@@ -61,6 +61,7 @@
         "vector": "cpp",
         "algorithm": "cpp",
         "*.tcc": "cpp",
-        "execution": "cpp"
+        "execution": "cpp",
+        "condition_variable": "cpp"
     }
 }
