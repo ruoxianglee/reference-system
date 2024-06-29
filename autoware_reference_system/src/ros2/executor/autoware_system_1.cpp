@@ -91,7 +91,7 @@ int main(int argc, char ** argv)
   // using TimeConfig = nodes::timing::BenchmarkCPUUsage;
   // set_benchmark_mode(true);
 
-  auto nodes_vec = create_autoware_simplied_nodes<RclcppSystem, TimeConfig>();
+  auto nodes_vec = create_autoware_system_1_nodes<RclcppSystem, TimeConfig>();
   using NodeMap = std::unordered_map<std::string,
       std::shared_ptr<RclcppSystem::NodeBaseType>>;
 
@@ -160,13 +160,25 @@ int main(int argc, char ** argv)
         executors[i]->spin();
         break;
       case 1:
-        executors[i]->spin();
+        while(rclcpp::ok())
+        {
+          std::unique_lock<std::mutex> lock(mtx);
+          executors[i]->spin_some(std::chrono::milliseconds(0));
+          lock.unlock();
+          std::this_thread::sleep_for(std::chrono::milliseconds(5));
+        }
         break;
       case 2:
         executors[i]->spin();
         break;
       case 3:
-        executors[i]->spin();
+        while(rclcpp::ok())
+        {
+          std::unique_lock<std::mutex> lock(mtx);
+          executors[i]->spin_some(std::chrono::milliseconds(0));
+          lock.unlock();
+          std::this_thread::sleep_for(std::chrono::milliseconds(5));
+        }
         break;
       case 4:
         executors[i]->spin();

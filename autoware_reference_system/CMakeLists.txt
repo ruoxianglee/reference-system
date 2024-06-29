@@ -75,14 +75,14 @@ if(${FRAMEWORK} STREQUAL ros)
     src/ros2/executor/autoware_default_staticsinglethreaded.cpp)
 
   # Prioritized Executor
-  add_benchmark_executable(autoware_case_study_1
-    src/ros2/executor/autoware_case_study_1.cpp)
+  add_benchmark_executable(autoware_system_1
+    src/ros2/executor/autoware_system_1.cpp)
 
-  add_benchmark_executable(autoware_case_study_2
-    src/ros2/executor/autoware_case_study_2.cpp)
+  add_benchmark_executable(autoware_system_2
+    src/ros2/executor/autoware_system_2.cpp)
 
-  add_benchmark_executable(autoware_case_study_3
-    src/ros2/executor/autoware_case_study_3.cpp)
+  add_benchmark_executable(autoware_system_3
+    src/ros2/executor/autoware_system_3.cpp)
 
   # API `add_callback_group` not available in Foxy
   if(NOT $ENV{ROS_DISTRO} MATCHES "foxy")

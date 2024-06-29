@@ -84,28 +84,30 @@ private:
     // auto number_cruncher_result = number_cruncher(number_crunch_limit_);
 
     std::string node_name = this->get_name();
-    if(dynamic_workload_){
-      dynamic_workloads();
-      // sleep_randomly(90,20);
-      // std::cout << node_name << ": (90,20)" << std::endl;
-    } else {
-      if (node_name == "PointsTransformerFront")
-      {
-        // std::cout << "PointsTransformerFront: (60,5)" << std::endl;
-        sleep_randomly(60,5);
+    
+    if (node_name == "RayGroundFilter"){
+      if(dynamic_workload_){
+        dynamic_workloads();
+      } else {
+        sleep_randomly(90,20);
+        // std::cout << node_name << ": (90,20)" << std::endl;
+        // std::this_thread::sleep_for(std::chrono::milliseconds(50));
       }
-      else if (node_name == "EuclideanClusterDetector")
-      {
-        // std::cout << "EuclideanClusterDetector: (30,5)" << std::endl;
-        sleep_randomly(30,5);
-      }
-      else
-      {
-        sleep_randomly(50,5);
-        // std::cout << node_name << ": (50,5)" << std::endl;
-      }
-        
-      // std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    }
+    else if (node_name == "PointsTransformerFront")
+    {
+      // std::cout << "PointsTransformerFront: (60,5)" << std::endl;
+      sleep_randomly(60,5);
+    }
+    else if (node_name == "EuclideanClusterDetector")
+    {
+      // std::cout << "EuclideanClusterDetector: (30,5)" << std::endl;
+      sleep_randomly(30,5);
+    }
+    else if (node_name == "ObjectCollisionEstimator")
+    {
+      sleep_randomly(50,5);
+      // std::cout << node_name << ": (50,5)" << std::endl;
     }
 
     auto output_message = publisher_->borrow_loaned_message();
