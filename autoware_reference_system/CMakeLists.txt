@@ -84,6 +84,9 @@ if(${FRAMEWORK} STREQUAL ros)
   add_benchmark_executable(autoware_system_3
     src/ros2/executor/autoware_system_3.cpp)
 
+    add_benchmark_executable(autoware_system_4
+    src/ros2/executor/autoware_system_4.cpp)
+
   # API `add_callback_group` not available in Foxy
   if(NOT $ENV{ROS_DISTRO} MATCHES "foxy")
     # Multiple executors on callback-group-level with suitable prioritization of critical path.

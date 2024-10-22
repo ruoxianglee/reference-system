@@ -28,7 +28,6 @@
 #include <sys/syscall.h>
 #include <thread>
 #include <mutex>
-#include <condition_variable>
 #include <chrono>
 
 #include "rclcpp/rclcpp.hpp"
@@ -40,11 +39,6 @@
 
 int executor_thread_prio = 0; //nice value
 int dummy_task_prio = -10;
-
-// Shared mutex for resource competition
-std::mutex mtx;
-std::condition_variable cv;
-bool is_thread_1_running = false;
 
 void set_rt_properties(int prio, int cpu)
 {
@@ -70,6 +64,24 @@ void set_rt_properties(int prio, int cpu)
   sched_setaffinity(0, sizeof(cpuset), &cpuset);
 }
 
+void cpu_dummy_task() {
+    // while (true) {
+    //     volatile unsigned long long sum = 0;
+    //     for (unsigned long long i = 0; i < 1000000000; ++i) {
+    //         sum += i;
+    //     }
+    // }
+
+    // std::random_device rd;
+    // std::mt19937 gen(rd());
+    // std::uniform_real_distribution<> dis(0, 50);
+    // double jitter = dis(gen);
+    // usleep(150000 - jitter*1000); // 150 ms - jitter
+
+    // usleep(120000);
+    sleep_randomly(50,5);
+}
+
 int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
@@ -79,7 +91,7 @@ int main(int argc, char ** argv)
   // using TimeConfig = nodes::timing::BenchmarkCPUUsage;
   // set_benchmark_mode(true);
 
-  auto nodes_vec = create_autoware_simplied_nodes<RclcppSystem, TimeConfig>();
+  auto nodes_vec = create_autoware_system_1_nodes<RclcppSystem, TimeConfig>();
   using NodeMap = std::unordered_map<std::string,
       std::shared_ptr<RclcppSystem::NodeBaseType>>;
 
@@ -133,6 +145,9 @@ int main(int argc, char ** argv)
       detector_exe,
       estimator_exe};
 
+  // Shared mutex for resource competition
+  std::mutex mtx;
+
   for (int i = 0; i < 5; ++i)
   {
     thread_pool.emplace_back([&, i]()
@@ -145,40 +160,13 @@ int main(int argc, char ** argv)
         executors[i]->spin();
         break;
       case 1:
-        while(rclcpp::ok())
-        {
-          {
-            std::unique_lock<std::mutex> lock(mtx);
-            is_thread_1_running = true;
-          }
-          
-          executors[i]->spin_some(std::chrono::milliseconds(0));
-
-          {
-            std::unique_lock<std::mutex> lock(mtx);
-            is_thread_1_running = false;
-          }
-          
-          cv.notify_all();
-
-          std::this_thread::sleep_for(std::chrono::milliseconds(5));
-        }
+        executors[i]->spin();
         break;
       case 2:
         executors[i]->spin();
         break;
       case 3:
-        while(rclcpp::ok())
-        {
-          {
-            std::unique_lock<std::mutex> lock(mtx);
-            cv.wait(lock, [] { return !is_thread_1_running; });
-          }
-
-          executors[i]->spin_some(std::chrono::milliseconds(0));
-
-          std::this_thread::sleep_for(std::chrono::milliseconds(5));
-        }
+        executors[i]->spin();
         break;
       case 4:
         executors[i]->spin();

@@ -89,9 +89,8 @@ private:
       if(dynamic_workload_){
         dynamic_workloads();
       } else {
-        sleep_randomly(90,20);
-        // std::cout << node_name << ": (90,20)" << std::endl;
-        // std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        sleep_randomly(50,5); //(90,20)
+        std::cout << node_name << ": (50,5)" << std::endl;
       }
     }
     else if (node_name == "PointsTransformerFront")
